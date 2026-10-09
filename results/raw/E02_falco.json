@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E02",
+  "tool": "falco",
+  "behavior": "process_execution",
+  "variant": "baseline",
+  "detected": true,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": ["sh", "id", "uname"],
+  "notes": "Custom EBPF_LAB process execution rule generated three detections for processes executed inside the Alpine container."
+}

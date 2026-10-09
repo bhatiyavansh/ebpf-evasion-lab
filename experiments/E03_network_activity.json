@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E03",
+  "tool": "falco",
+  "behavior": "network_activity",
+  "variant": "baseline",
+  "description": "Make a controlled outbound HTTPS request from an Alpine container",
+  "command": "wget -q -O /dev/null https://example.com",
+  "expected_detection": "process_execution_observed"
+}

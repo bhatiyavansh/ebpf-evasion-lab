@@ -1,0 +1,13 @@
+{
+  "experiment_id": "string",
+  "tool": "string",
+  "behavior": "string",
+  "variant": "string",
+  "detected": "boolean",
+  "event_observed": "boolean",
+  "containerized": "boolean",
+  "detection_type": "string",
+  "latency_ms": "number|null",
+  "alert_count": "integer",
+  "notes": "string"
+}

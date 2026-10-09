@@ -1,0 +1,18 @@
+{
+  "experiment_id": "E04",
+  "tool": "tracee",
+  "behavior": "process_execution",
+  "variant": "indirect_execution",
+  "detected": true,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": [
+    "sh",
+    "sh",
+    "id"
+  ],
+  "detection_type": "execve_telemetry",
+  "alert_count": 3,
+  "notes": "Tracee observed all three execve stages of the indirectly executed command, including both shell layers and id, with container metadata."
+}

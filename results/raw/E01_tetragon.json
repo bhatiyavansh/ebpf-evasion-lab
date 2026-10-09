@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E01",
+  "tool": "tetragon",
+  "behavior": "sensitive_file_read",
+  "variant": "baseline",
+  "detected": false,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "detection_type": "sched_process_exec_telemetry",
+  "alert_count": 0,
+  "notes": "Tetragon observed execution of /bin/cat /etc/shadow inside the controlled container through sched_process_exec telemetry. The current tracing policy does not trace the underlying file-open operation, so sensitive-file access detection itself is not established."
+}

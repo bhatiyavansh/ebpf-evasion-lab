@@ -1,0 +1,14 @@
+{
+  "experiment_id": "E03",
+  "tool": "falco",
+  "behavior": "network_activity",
+  "variant": "baseline",
+  "detected": true,
+  "detection_type": "process_execution",
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": ["sh", "wget", "ssl_client"],
+  "network_connection_detection": false,
+  "notes": "The network test generated process-execution detections. This result does not establish that Falco's network-specific rules detected the connection."
+}

@@ -1,0 +1,6 @@
+- rule: EBPF Lab Container Process Execution
+  desc: Detect process execution inside a container for baseline measurement
+  condition: evt.type in (execve, execveat) and container.id != host
+  output: "EBPF_LAB process execution container=%container.name image=%container.image.repository:%container.image.tag process=%proc.name command=%proc.cmdline"
+  priority: NOTICE
+  tags: [ebpf-lab, baseline, process-execution]

@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E02",
+  "tool": "tracee",
+  "behavior": "process_execution",
+  "variant": "baseline",
+  "description": "Execute multiple benign processes inside a controlled Alpine container",
+  "command": "sh -c 'echo TRACEE_EXEC_TEST; id; uname -a'",
+  "expected_detection": true
+}

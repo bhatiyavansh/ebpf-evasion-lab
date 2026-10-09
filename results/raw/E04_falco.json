@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E04",
+  "tool": "falco",
+  "behavior": "process_execution",
+  "variant": "indirect_execution",
+  "detected": true,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": ["sh", "sh", "id"],
+  "notes": "Additional shell indirection still produced process-execution detections."
+}

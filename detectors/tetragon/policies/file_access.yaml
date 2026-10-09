@@ -1,0 +1,11 @@
+apiVersion: cilium.io/v1alpha1
+kind: TracingPolicy
+metadata:
+  name: ebpf-lab-file-access
+spec:
+  kprobes:
+    - call: "sys_openat"
+      syscall: true
+      args:
+        - index: 1
+          type: string

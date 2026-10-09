@@ -1,0 +1,8 @@
+apiVersion: cilium.io/v1alpha1
+kind: TracingPolicy
+metadata:
+  name: ebpf-lab-process-exec
+spec:
+  tracepoints:
+    - subsystem: sched
+      event: sched_process_exec

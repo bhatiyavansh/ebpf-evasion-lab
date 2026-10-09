@@ -1,0 +1,18 @@
+{
+  "experiment_id": "E02",
+  "tool": "tracee",
+  "behavior": "process_execution",
+  "variant": "baseline",
+  "detected": true,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": [
+    "sh",
+    "id",
+    "uname"
+  ],
+  "detection_type": "execve_telemetry",
+  "alert_count": 3,
+  "notes": "Tracee observed execve events for sh, id, and uname inside the tracee-test Alpine container. Container metadata was successfully enriched."
+}

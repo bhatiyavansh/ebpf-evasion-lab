@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E05",
+  "tool": "falco",
+  "behavior": "process_execution",
+  "variant": "timing_variation",
+  "description": "Execute benign processes with controlled two-second delays",
+  "command": "sh -c 'echo TIMING_TEST_1; sleep 2; echo TIMING_TEST_2; sleep 2; id'",
+  "expected_detection": true
+}

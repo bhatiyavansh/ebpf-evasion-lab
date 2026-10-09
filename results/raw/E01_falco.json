@@ -1,0 +1,11 @@
+{
+  "experiment_id": "E01",
+  "tool": "falco",
+  "behavior": "sensitive_file_read",
+  "variant": "baseline",
+  "detected": true,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "notes": "Falco reported Sensitive file opened for reading by non-trusted program for /etc/shadow."
+}

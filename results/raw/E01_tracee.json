@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E01",
+  "tool": "tracee",
+  "behavior": "sensitive_file_read",
+  "variant": "baseline",
+  "detected": true,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "detection_type": "openat_telemetry",
+  "alert_count": 1,
+  "notes": "Tracee observed the openat syscall for /etc/shadow from the cat process inside the Alpine container. This establishes file-access telemetry visibility under the configured execve+openat event set."
+}

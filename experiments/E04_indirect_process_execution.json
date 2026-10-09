@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E04",
+  "tool": "falco",
+  "behavior": "process_execution",
+  "variant": "indirect_execution",
+  "description": "Execute a benign command through an additional shell layer inside an Alpine container",
+  "command": "sh -c 'sh -c \"echo ADAPTIVE_INDIRECT_EXEC; id\"'",
+  "expected_detection": true
+}

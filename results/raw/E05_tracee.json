@@ -1,0 +1,20 @@
+{
+  "experiment_id": "E05",
+  "tool": "tracee",
+  "behavior": "process_execution",
+  "variant": "timing_variation",
+  "detected": true,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": [
+    "sh",
+    "sleep",
+    "sleep",
+    "id"
+  ],
+  "detection_type": "execve_telemetry",
+  "alert_count": 4,
+  "timing_intervals_seconds": [2, 2],
+  "notes": "Tracee observed all execution events despite controlled two-second delays between commands."
+}

@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E05",
+  "tool": "falco",
+  "behavior": "process_execution",
+  "variant": "timing_variation",
+  "detected": true,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": ["sh", "sleep", "sleep", "id"],
+  "timing_intervals_seconds": [2, 2],
+  "notes": "All execution events were detected despite controlled delays between commands."
+}

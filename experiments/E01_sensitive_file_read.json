@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E01",
+  "tool": "falco",
+  "behavior": "sensitive_file_read",
+  "variant": "baseline",
+  "description": "Read /etc/shadow from a controlled Alpine container",
+  "command": "cat /etc/shadow >/dev/null",
+  "expected_detection": true
+}
