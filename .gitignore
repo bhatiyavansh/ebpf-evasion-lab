@@ -1,0 +1,121 @@
+# ==========================================
+# Node / React
+# ==========================================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.yarn/
+.pnp/
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.vercel/
+.turbo/
+
+# Vite
+.vite/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# ==========================================
+# Environment / Secrets
+# ==========================================
+
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Python
+# ==========================================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+.venv/
+venv/
+env/
+ENV/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ==========================================
+# Logs / Runtime
+# ==========================================
+
+*.log
+logs/
+*.pid
+*.pid.lock
+
+# ==========================================
+# OS
+# ==========================================
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# ==========================================
+# IDE / Editors
+# ==========================================
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+.idea/
+*.iml
+
+# ==========================================
+# Temporary files
+# ==========================================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.bak
+
+# ==========================================
+# Test / Generated artifacts
+# ==========================================
+
+playwright-report/
+test-results/
+*.lcov
+
+# ==========================================
+# Docker
+# ==========================================
+
+docker-compose.override.yml
+
+# ==========================================
+# Local databases / generated DB files
+# ==========================================
+
+*.sqlite
+*.sqlite3
+*.db
