@@ -1,9 +1,6 @@
-import { loadExperiments } from "@/lib/data";
-import Dashboard from "@/components/Dashboard";
-
+import { loadDashboardData } from "@/lib/data";
+import Home from "@/components/views/Home";
 export const dynamic = "force-dynamic";
-
 export default function Page() {
-  const experiments = loadExperiments();
-  return <Dashboard experiments={experiments} />;
+  return <Home data={loadDashboardData()} />;
 }

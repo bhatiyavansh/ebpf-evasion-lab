@@ -1,0 +1,102 @@
+{
+  "run_id": "run-A5_falco_t1-falco-20261015083359",
+  "run_label": "A5_falco_t1",
+  "tool": "falco",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-15T03:03:59Z",
+  "ended_at": "2026-10-15T03:04:12Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c cp /bin/busybox /tmp/labdrop && /tmp/labdrop id",
+  "container_id": "6afdeef4de0313ca25be10f749270c27fbf18ac4c5d6a50ad5c1feaade4eec3e",
+  "container_short": "6afdeef4de03",
+  "tool_version": "falcosecurity/falco:0.45.0",
+  "driver": "modern_ebpf",
+  "total_alerts": 3,
+  "qualifying_detections": [
+    {
+      "rule": "Drop and execute new binary in container",
+      "priority": "Critical",
+      "tags": [
+        "PCI_DSS_11.5.1",
+        "TA0003",
+        "container",
+        "maturity_stable",
+        "mitre_persistence",
+        "process"
+      ],
+      "mitre": [
+        "mitre_persistence"
+      ],
+      "output": "2026-10-15T03:04:08.097472645+0000: Critical Executing binary not part of base image | proc_exe=/tmp/labdrop proc_sname= gparent=systemd proc_exe_ino_ctime=1792033448090825073 proc_exe_ino_mtime=1792033448090825073 proc_exe_ino_ctime_duration_proc_start=18446744073586002538 proc_cwd=/ container_start_ts=1792033447552738451 evt_type=execve user=root user_uid=0 user_loginuid=-1 process=labdrop proc_exepath=/tmp/labdrop parent=containerd-shim command=labdrop id terminal=0 exe_flags=EXE_WRITABLE|EXE_UPPER_LAYER container_id=6afdeef4de03 container_name=lab-workload-A5_falco_t1-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "6afdeef4de03",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A5_falco_t1-falco",
+        "container.start_ts": 1792033447552738451,
+        "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+        "evt.time.iso8601": 1792033448097472645,
+        "evt.type": "execve",
+        "proc.aname[2]": "systemd",
+        "proc.cmdline": "labdrop id",
+        "proc.cwd": "/",
+        "proc.exe": "/tmp/labdrop",
+        "proc.exe_ino.ctime": 1792033448090825073,
+        "proc.exe_ino.ctime_duration_proc_start": 18446744073586002538,
+        "proc.exe_ino.mtime": 1792033448090825073,
+        "proc.exepath": "/tmp/labdrop",
+        "proc.name": "labdrop",
+        "proc.pname": "containerd-shim",
+        "proc.sname": "",
+        "proc.tty": 0,
+        "user.loginuid": -1,
+        "user.name": "root",
+        "user.uid": 0
+      }
+    }
+  ],
+  "custom_rule_notices": [
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-15T03:04:08.086962309+0000: Notice EBPF_LAB process execution container=lab-workload-A5_falco_t1-falco image=alpine:3.20 process=sh command=sh -c cp /bin/busybox /tmp/labdrop && /tmp/labdrop id container_id=6afdeef4de03 container_name=lab-workload-A5_falco_t1-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "6afdeef4de03",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A5_falco_t1-falco",
+        "evt.time.iso8601": 1792033448086962309,
+        "proc.cmdline": "sh -c cp /bin/busybox /tmp/labdrop && /tmp/labdrop id",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-15T03:04:08.093261957+0000: Notice EBPF_LAB process execution container=lab-workload-A5_falco_t1-falco image=alpine:3.20 process=cp command=cp /bin/busybox /tmp/labdrop container_id=6afdeef4de03 container_name=lab-workload-A5_falco_t1-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "6afdeef4de03",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A5_falco_t1-falco",
+        "evt.time.iso8601": 1792033448093261957,
+        "proc.cmdline": "cp /bin/busybox /tmp/labdrop",
+        "proc.name": "cp"
+      }
+    }
+  ],
+  "evidence_events": "results/raw/falco_events/A5_falco_t1.jsonl"
+}

@@ -1,0 +1,36 @@
+{
+  "experiment_id": "E05",
+  "tool": "tetragon",
+  "behavior": "process_execution",
+  "variant": "timing_variation",
+  "collection_status": "complete",
+  "collection_note": null,
+  "workload_exit_code": null,
+  "sensor_health": null,
+  "detected": false,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": [
+    "sh",
+    "sleep",
+    "sleep",
+    "id"
+  ],
+  "alert_count": 0,
+  "evidence_events": "results/raw/tetragon_events/E05.jsonl",
+  "event_counts": {
+    "sched_process_exec": 4,
+    "process_exec": 4,
+    "openat_kprobe": 14
+  },
+  "container_cgroup_ids": [
+    "b8c0f657a1ee"
+  ],
+  "detection_type": "sched_process_exec_telemetry",
+  "timing_intervals_seconds": [
+    2,
+    2
+  ],
+  "notes": "Tetragon observed sched_process_exec telemetry for sh, sleep, sleep, id inside the controlled Alpine container. All execution events were captured despite controlled two-second delays between commands. This is telemetry observed, not a confirmed security detection (no alerting policy was evaluated)."
+}

@@ -1,0 +1,35 @@
+{
+  "run_id": "run-E05-20261014122956",
+  "run_label": "E05",
+  "tool": "tetragon",
+  "provenance": "live",
+  "started_at": "2026-10-14T06:59:56Z",
+  "ended_at": "2026-10-14T07:00:06Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c echo TIMING_TEST_1; sleep 2; echo TIMING_TEST_2; sleep 2; id",
+  "container_id": "b8c0f657a1ee5b9187e604785b18e5da05e6e9eec9de5055e4c9c593793c6519",
+  "container_short": "b8c0f657a1ee",
+  "tool_version": "quay.io/cilium/tetragon:v1.6.0",
+  "policies": [
+    "ebpf-lab-process-exec (sched_process_exec)",
+    "ebpf-lab-file-access (sys_openat pathname)"
+  ],
+  "scoped_event_count": 25,
+  "event_counts": {
+    "process_exec": 4,
+    "sched_process_exec": 4,
+    "openat_kprobe": 14,
+    "process_exit": 3
+  },
+  "processes_observed": [
+    "sh",
+    "sleep",
+    "sleep",
+    "id"
+  ],
+  "openat_paths": [
+    "/etc/group",
+    "/etc/passwd"
+  ],
+  "evidence_events": "results/raw/tetragon_events/E05.jsonl"
+}

@@ -1,0 +1,88 @@
+{
+  "run_id": "run-A2_falco_t10-falco-20261015001256",
+  "run_label": "A2_falco_t10",
+  "tool": "falco",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-14T18:42:56Z",
+  "ended_at": "2026-10-14T18:43:08Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c sh -c \"id; uname -a\"",
+  "container_id": "cc8ef936a6412ee8701645703152bcc9ba4f592ce182cf3f7334a6f0d9ee62dd",
+  "container_short": "cc8ef936a641",
+  "tool_version": "falcosecurity/falco:0.45.0",
+  "driver": "modern_ebpf",
+  "total_alerts": 4,
+  "qualifying_detections": [],
+  "custom_rule_notices": [
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:43:05.073567501+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=sh command=sh -c sh -c \"id; uname -a\" container_id=cc8ef936a641 container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "cc8ef936a641",
+        "evt.time.iso8601": 1792003385073567501,
+        "proc.cmdline": "sh -c sh -c \"id; uname -a\"",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:43:05.075731541+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=sh command=sh -c id; uname -a container_id=cc8ef936a641 container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "cc8ef936a641",
+        "evt.time.iso8601": 1792003385075731541,
+        "proc.cmdline": "sh -c id; uname -a",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:43:05.076336552+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=id command=id container_id=cc8ef936a641 container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "cc8ef936a641",
+        "evt.time.iso8601": 1792003385076336552,
+        "proc.cmdline": "id",
+        "proc.name": "id"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:43:05.077528856+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=uname command=uname -a container_id=cc8ef936a641 container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "cc8ef936a641",
+        "evt.time.iso8601": 1792003385077528856,
+        "proc.cmdline": "uname -a",
+        "proc.name": "uname"
+      }
+    }
+  ],
+  "evidence_events": "results/raw/falco_events/A2_falco_t10.jsonl"
+}

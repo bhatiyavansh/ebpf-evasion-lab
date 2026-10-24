@@ -1,0 +1,25 @@
+{
+  "experiment_id": "E04",
+  "tool": "tetragon",
+  "behavior": "process_execution",
+  "variant": "indirect_execution",
+  "collection_status": "collection_failed_sensor_no_events",
+  "collection_note": "Workload executed (exit 0) but Tetragon captured zero events scoped to the container. Tetragon emitted no events at all in the window. This is COLLECTION_FAILED, not a detector miss and not telemetry.",
+  "workload_exit_code": "0",
+  "sensor_health": "no_events_in_window",
+  "detected": false,
+  "event_observed": false,
+  "containerized": false,
+  "image": "alpine:3.20",
+  "processes_detected": [],
+  "alert_count": 0,
+  "evidence_events": "results/raw/tetragon_events/E04.jsonl",
+  "event_counts": {
+    "sched_process_exec": 0,
+    "process_exec": 0,
+    "openat_kprobe": 0
+  },
+  "container_cgroup_ids": [],
+  "detection_type": "sched_process_exec_telemetry",
+  "notes": "Tetragon observed sched_process_exec telemetry for  inside the controlled Alpine container. Both shell layers and the final command were captured; additional shell indirection did not remove process-execution telemetry. This is telemetry observed, not a confirmed security detection (no alerting policy was evaluated)."
+}

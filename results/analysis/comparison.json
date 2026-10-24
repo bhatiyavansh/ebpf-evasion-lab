@@ -1,0 +1,1326 @@
+{
+  "generated_from": "results/runs/A*_*.json via scripts/build_comparison.py",
+  "qualifying_detection_criteria": {
+    "falco": "A fired Falco rule whose priority is Warning or higher AND which is not the lab's own process-execution Notice rule. These are Falco's built-in security rules (they carry mitre_*/security tags). The custom process-execution rule is telemetry-grade and never counts as a detection.",
+    "tracee": "An event carrying a non-empty matchedPolicies entry (a documented detection policy matched). With an event-set-only configuration and no signatures engine, Tracee produces telemetry, not detections.",
+    "tetragon_baseline": "Generic tracing-policy telemetry (sched_process_exec, broad openat). This is telemetry, never a detection.",
+    "tetragon_configured": "An event emitted by the selective ebpf-lab-sensitive-file-detect policy, whose matchArgs selector fires ONLY on sensitive pathnames (/etc/shadow, /etc/sudoers, ssh host key). Such a match is a policy-based detection of sensitive-file access."
+  },
+  "scenarios": [
+    {
+      "id": "A1",
+      "title": "Credential Access \u2014 sensitive file read",
+      "mitre": [
+        "T1552.001 Credentials in Files",
+        "T1555 Credentials from Password Stores"
+      ],
+      "technique_note": "Reads /etc/shadow inside a throwaway alpine container. Alpine's /etc/shadow holds no real secret; this exercises the sensitive-file/credential-access detection path without exposing any credential.",
+      "payload": "cat /etc/shadow >/dev/null",
+      "hypothesis": "A tool with a sensitive-file detection rule/policy will raise a qualifying detection; a telemetry-only configuration will observe the open but not detect it.",
+      "success_criteria": "A qualifying detection (per the tool's criterion above) that references the sensitive file in the same executed run.",
+      "detection_objective": "Detect sensitive-file / credential access.",
+      "cells": {
+        "falco": {
+          "tool": "Falco",
+          "config": "configured",
+          "track_key": "falco",
+          "headline_outcome": "DETECTED",
+          "trial_counts": {
+            "DETECTED": 10
+          },
+          "trials_executed": 10,
+          "trials_total": 10,
+          "valid_trials": 10,
+          "detections": 10,
+          "expected": "DETECTED",
+          "config_note": "security rules enabled (default)",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t1-falco-20261014131806",
+              "evidence_events": "results/raw/falco_events/A1_falco_t1.jsonl",
+              "started_at": "2026-10-14T07:48:06Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t2-falco-20261014131821",
+              "evidence_events": "results/raw/falco_events/A1_falco_t2.jsonl",
+              "started_at": "2026-10-14T07:48:21Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t3-falco-20261014131836",
+              "evidence_events": "results/raw/falco_events/A1_falco_t3.jsonl",
+              "started_at": "2026-10-14T07:48:36Z"
+            },
+            {
+              "trial": 4,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t4-falco-20261014235901",
+              "evidence_events": "results/raw/falco_events/A1_falco_t4.jsonl",
+              "started_at": "2026-10-14T18:29:01Z"
+            },
+            {
+              "trial": 5,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t5-falco-20261015000006",
+              "evidence_events": "results/raw/falco_events/A1_falco_t5.jsonl",
+              "started_at": "2026-10-14T18:30:06Z"
+            },
+            {
+              "trial": 6,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t6-falco-20261015000110",
+              "evidence_events": "results/raw/falco_events/A1_falco_t6.jsonl",
+              "started_at": "2026-10-14T18:31:10Z"
+            },
+            {
+              "trial": 7,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t7-falco-20261015000218",
+              "evidence_events": "results/raw/falco_events/A1_falco_t7.jsonl",
+              "started_at": "2026-10-14T18:32:18Z"
+            },
+            {
+              "trial": 8,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t8-falco-20261015000325",
+              "evidence_events": "results/raw/falco_events/A1_falco_t8.jsonl",
+              "started_at": "2026-10-14T18:33:25Z"
+            },
+            {
+              "trial": 9,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t9-falco-20261015000431",
+              "evidence_events": "results/raw/falco_events/A1_falco_t9.jsonl",
+              "started_at": "2026-10-14T18:34:31Z"
+            },
+            {
+              "trial": 10,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Read sensitive file untrusted ['T1555', 'mitre_credential_access']",
+              "run_id": "run-A1_falco_t10-falco-20261015000537",
+              "evidence_events": "results/raw/falco_events/A1_falco_t10.jsonl",
+              "started_at": "2026-10-14T18:35:37Z"
+            }
+          ]
+        },
+        "tracee": {
+          "tool": "Tracee",
+          "config": "baseline",
+          "track_key": "tracee",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 10
+          },
+          "trials_executed": 10,
+          "trials_total": 10,
+          "valid_trials": 10,
+          "detections": 0,
+          "expected": "TELEMETRY_ONLY",
+          "config_note": "event set only (security_file_open telemetry)",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t1-tracee-20261014131848",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t1.jsonl",
+              "started_at": "2026-10-14T07:48:48Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t2-tracee-20261014131941",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t2.jsonl",
+              "started_at": "2026-10-14T07:49:41Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t3-tracee-20261014132034",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t3.jsonl",
+              "started_at": "2026-10-14T07:50:34Z"
+            },
+            {
+              "trial": 4,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t4-tracee-20261014235914",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t4.jsonl",
+              "started_at": "2026-10-14T18:29:14Z"
+            },
+            {
+              "trial": 5,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t5-tracee-20261015000019",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t5.jsonl",
+              "started_at": "2026-10-14T18:30:19Z"
+            },
+            {
+              "trial": 6,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t6-tracee-20261015000125",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t6.jsonl",
+              "started_at": "2026-10-14T18:31:25Z"
+            },
+            {
+              "trial": 7,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t7-tracee-20261015000232",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t7.jsonl",
+              "started_at": "2026-10-14T18:32:32Z"
+            },
+            {
+              "trial": 8,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t8-tracee-20261015000339",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t8.jsonl",
+              "started_at": "2026-10-14T18:33:39Z"
+            },
+            {
+              "trial": 9,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t9-tracee-20261015000445",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t9.jsonl",
+              "started_at": "2026-10-14T18:34:45Z"
+            },
+            {
+              "trial": 10,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "10 telemetry events, no qualifying signature fired",
+              "run_id": "run-A1_tracee_t10-tracee-20261015000550",
+              "evidence_events": "results/raw/tracee_events/A1_tracee_t10.jsonl",
+              "started_at": "2026-10-14T18:35:50Z"
+            }
+          ]
+        },
+        "tetB": {
+          "tool": "Tetragon",
+          "config": "baseline",
+          "track_key": "tetragon_baseline",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 3
+          },
+          "trials_executed": 3,
+          "trials_total": 3,
+          "valid_trials": 3,
+          "detections": 0,
+          "expected": "TELEMETRY_ONLY",
+          "config_note": "generic openat + exec telemetry",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "generic tracing-policy telemetry (no selective detection policy)",
+              "run_id": "run-A1_tetB_t1-20261014132133",
+              "evidence_events": "results/raw/tetragon_events/A1_tetB_t1.jsonl",
+              "started_at": "2026-10-14T07:51:33Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "generic tracing-policy telemetry (no selective detection policy)",
+              "run_id": "run-A1_tetB_t2-20261014132140",
+              "evidence_events": "results/raw/tetragon_events/A1_tetB_t2.jsonl",
+              "started_at": "2026-10-14T07:51:40Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "generic tracing-policy telemetry (no selective detection policy)",
+              "run_id": "run-A1_tetB_t3-20261014132147",
+              "evidence_events": "results/raw/tetragon_events/A1_tetB_t3.jsonl",
+              "started_at": "2026-10-14T07:51:47Z"
+            }
+          ]
+        },
+        "tetC": {
+          "tool": "Tetragon",
+          "config": "configured",
+          "track_key": "tetragon_configured",
+          "headline_outcome": "DETECTED",
+          "trial_counts": {
+            "DETECTED": 3
+          },
+          "trials_executed": 3,
+          "trials_total": 3,
+          "valid_trials": 3,
+          "detections": 3,
+          "expected": "DETECTED",
+          "config_note": "selective sensitive-file matchArgs policy",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "DETECTED",
+              "detail": "selective sensitive-file policy matched: ['/etc/shadow']",
+              "run_id": "run-A1_tetC_t1-20261014132158",
+              "evidence_events": "results/raw/tetragon_events/A1_tetC_t1.jsonl",
+              "started_at": "2026-10-14T07:51:58Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "DETECTED",
+              "detail": "selective sensitive-file policy matched: ['/etc/shadow']",
+              "run_id": "run-A1_tetC_t2-20261014132204",
+              "evidence_events": "results/raw/tetragon_events/A1_tetC_t2.jsonl",
+              "started_at": "2026-10-14T07:52:04Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "DETECTED",
+              "detail": "selective sensitive-file policy matched: ['/etc/shadow']",
+              "run_id": "run-A1_tetC_t3-20261014132211",
+              "evidence_events": "results/raw/tetragon_events/A1_tetC_t3.jsonl",
+              "started_at": "2026-10-14T07:52:11Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "A2",
+      "title": "Nested Shell Execution",
+      "mitre": [
+        "T1059.004 Unix Shell"
+      ],
+      "technique_note": "An extra shell layer launches id and uname (sh -c \"id; uname -a\" inside sh -c). Benign commands; the behavioral property under test is process nesting.",
+      "payload": "sh -c \"id; uname -a\"",
+      "hypothesis": "Nested shell execution remains observable; whether it is DETECTED depends on whether a shell/exec security rule is configured.",
+      "success_criteria": "A qualifying detection referencing shell/nested execution in the executed run.",
+      "detection_objective": "Observe / detect nested shell execution.",
+      "cells": {
+        "falco": {
+          "tool": "Falco",
+          "config": "configured",
+          "track_key": "falco",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 10
+          },
+          "trials_executed": 10,
+          "trials_total": 10,
+          "valid_trials": 10,
+          "detections": 0,
+          "expected": "observe actual rule outcome",
+          "config_note": "security rules enabled (default)",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t1-falco-20261014132218",
+              "evidence_events": "results/raw/falco_events/A2_falco_t1.jsonl",
+              "started_at": "2026-10-14T07:52:18Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t2-falco-20261014132232",
+              "evidence_events": "results/raw/falco_events/A2_falco_t2.jsonl",
+              "started_at": "2026-10-14T07:52:32Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t3-falco-20261014132245",
+              "evidence_events": "results/raw/falco_events/A2_falco_t3.jsonl",
+              "started_at": "2026-10-14T07:52:45Z"
+            },
+            {
+              "trial": 4,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t4-falco-20261015000641",
+              "evidence_events": "results/raw/falco_events/A2_falco_t4.jsonl",
+              "started_at": "2026-10-14T18:36:41Z"
+            },
+            {
+              "trial": 5,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t5-falco-20261015000745",
+              "evidence_events": "results/raw/falco_events/A2_falco_t5.jsonl",
+              "started_at": "2026-10-14T18:37:45Z"
+            },
+            {
+              "trial": 6,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t6-falco-20261015000847",
+              "evidence_events": "results/raw/falco_events/A2_falco_t6.jsonl",
+              "started_at": "2026-10-14T18:38:47Z"
+            },
+            {
+              "trial": 7,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t7-falco-20261015000949",
+              "evidence_events": "results/raw/falco_events/A2_falco_t7.jsonl",
+              "started_at": "2026-10-14T18:39:49Z"
+            },
+            {
+              "trial": 8,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t8-falco-20261015001051",
+              "evidence_events": "results/raw/falco_events/A2_falco_t8.jsonl",
+              "started_at": "2026-10-14T18:40:51Z"
+            },
+            {
+              "trial": 9,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t9-falco-20261015001153",
+              "evidence_events": "results/raw/falco_events/A2_falco_t9.jsonl",
+              "started_at": "2026-10-14T18:41:53Z"
+            },
+            {
+              "trial": 10,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A2_falco_t10-falco-20261015001256",
+              "evidence_events": "results/raw/falco_events/A2_falco_t10.jsonl",
+              "started_at": "2026-10-14T18:42:56Z"
+            }
+          ]
+        },
+        "tracee": {
+          "tool": "Tracee",
+          "config": "baseline",
+          "track_key": "tracee",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 10
+          },
+          "trials_executed": 10,
+          "trials_total": 10,
+          "valid_trials": 10,
+          "detections": 0,
+          "expected": "TELEMETRY_ONLY",
+          "config_note": "execve telemetry",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t1-tracee-20261014132258",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t1.jsonl",
+              "started_at": "2026-10-14T07:52:58Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t2-tracee-20261014132351",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t2.jsonl",
+              "started_at": "2026-10-14T07:53:51Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t3-tracee-20261014132443",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t3.jsonl",
+              "started_at": "2026-10-14T07:54:43Z"
+            },
+            {
+              "trial": 4,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t4-tracee-20261015000654",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t4.jsonl",
+              "started_at": "2026-10-14T18:36:54Z"
+            },
+            {
+              "trial": 5,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t5-tracee-20261015000757",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t5.jsonl",
+              "started_at": "2026-10-14T18:37:57Z"
+            },
+            {
+              "trial": 6,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t6-tracee-20261015000859",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t6.jsonl",
+              "started_at": "2026-10-14T18:38:59Z"
+            },
+            {
+              "trial": 7,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t7-tracee-20261015001001",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t7.jsonl",
+              "started_at": "2026-10-14T18:40:01Z"
+            },
+            {
+              "trial": 8,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t8-tracee-20261015001103",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t8.jsonl",
+              "started_at": "2026-10-14T18:41:03Z"
+            },
+            {
+              "trial": 9,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t9-tracee-20261015001205",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t9.jsonl",
+              "started_at": "2026-10-14T18:42:05Z"
+            },
+            {
+              "trial": 10,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "57 telemetry events, no qualifying signature fired",
+              "run_id": "run-A2_tracee_t10-tracee-20261015001308",
+              "evidence_events": "results/raw/tracee_events/A2_tracee_t10.jsonl",
+              "started_at": "2026-10-14T18:43:08Z"
+            }
+          ]
+        },
+        "tetB": {
+          "tool": "Tetragon",
+          "config": "baseline",
+          "track_key": "tetragon_baseline",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 3
+          },
+          "trials_executed": 3,
+          "trials_total": 3,
+          "valid_trials": 3,
+          "detections": 0,
+          "expected": "TELEMETRY_ONLY",
+          "config_note": "sched_process_exec telemetry",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "generic tracing-policy telemetry (no selective detection policy)",
+              "run_id": "run-A2_tetB_t1-20261014132542",
+              "evidence_events": "results/raw/tetragon_events/A2_tetB_t1.jsonl",
+              "started_at": "2026-10-14T07:55:42Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "generic tracing-policy telemetry (no selective detection policy)",
+              "run_id": "run-A2_tetB_t2-20261014132548",
+              "evidence_events": "results/raw/tetragon_events/A2_tetB_t2.jsonl",
+              "started_at": "2026-10-14T07:55:48Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "generic tracing-policy telemetry (no selective detection policy)",
+              "run_id": "run-A2_tetB_t3-20261014132554",
+              "evidence_events": "results/raw/tetragon_events/A2_tetB_t3.jsonl",
+              "started_at": "2026-10-14T07:55:54Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "A3",
+      "title": "Host / Container Discovery",
+      "mitre": [
+        "T1082 System Information Discovery",
+        "T1033 System Owner/User Discovery"
+      ],
+      "technique_note": "Runs id, uname -a, cat /etc/os-release, hostname \u2014 standard discovery commands. Read-only and benign.",
+      "payload": "id; uname -a; cat /etc/os-release >/dev/null; hostname",
+      "hypothesis": "Discovery commands are observable as process executions; detection depends on discovery-specific rules, which are not configured here.",
+      "success_criteria": "A qualifying detection referencing discovery behavior in the executed run.",
+      "detection_objective": "Observe / detect host-and-container discovery.",
+      "cells": {
+        "falco": {
+          "tool": "Falco",
+          "config": "configured",
+          "track_key": "falco",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 10
+          },
+          "trials_executed": 10,
+          "trials_total": 10,
+          "valid_trials": 10,
+          "detections": 0,
+          "expected": "observe actual rule outcome",
+          "config_note": "security rules enabled (default)",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t1-falco-20261014132601",
+              "evidence_events": "results/raw/falco_events/A3_falco_t1.jsonl",
+              "started_at": "2026-10-14T07:56:01Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t2-falco-20261014132614",
+              "evidence_events": "results/raw/falco_events/A3_falco_t2.jsonl",
+              "started_at": "2026-10-14T07:56:14Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t3-falco-20261014132628",
+              "evidence_events": "results/raw/falco_events/A3_falco_t3.jsonl",
+              "started_at": "2026-10-14T07:56:28Z"
+            },
+            {
+              "trial": 4,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t4-falco-20261015001359",
+              "evidence_events": "results/raw/falco_events/A3_falco_t4.jsonl",
+              "started_at": "2026-10-14T18:43:59Z"
+            },
+            {
+              "trial": 5,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t5-falco-20261015001501",
+              "evidence_events": "results/raw/falco_events/A3_falco_t5.jsonl",
+              "started_at": "2026-10-14T18:45:01Z"
+            },
+            {
+              "trial": 6,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t6-falco-20261015001604",
+              "evidence_events": "results/raw/falco_events/A3_falco_t6.jsonl",
+              "started_at": "2026-10-14T18:46:04Z"
+            },
+            {
+              "trial": 7,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t7-falco-20261015001706",
+              "evidence_events": "results/raw/falco_events/A3_falco_t7.jsonl",
+              "started_at": "2026-10-14T18:47:06Z"
+            },
+            {
+              "trial": 8,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t8-falco-20261015001808",
+              "evidence_events": "results/raw/falco_events/A3_falco_t8.jsonl",
+              "started_at": "2026-10-14T18:48:08Z"
+            },
+            {
+              "trial": 9,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t9-falco-20261015001911",
+              "evidence_events": "results/raw/falco_events/A3_falco_t9.jsonl",
+              "started_at": "2026-10-14T18:49:11Z"
+            },
+            {
+              "trial": 10,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A3_falco_t10-falco-20261015002013",
+              "evidence_events": "results/raw/falco_events/A3_falco_t10.jsonl",
+              "started_at": "2026-10-14T18:50:13Z"
+            }
+          ]
+        },
+        "tracee": {
+          "tool": "Tracee",
+          "config": "baseline",
+          "track_key": "tracee",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 10
+          },
+          "trials_executed": 10,
+          "trials_total": 10,
+          "valid_trials": 10,
+          "detections": 0,
+          "expected": "TELEMETRY_ONLY",
+          "config_note": "execve telemetry",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t1-tracee-20261014132642",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t1.jsonl",
+              "started_at": "2026-10-14T07:56:42Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t2-tracee-20261014132735",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t2.jsonl",
+              "started_at": "2026-10-14T07:57:35Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t3-tracee-20261014132826",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t3.jsonl",
+              "started_at": "2026-10-14T07:58:26Z"
+            },
+            {
+              "trial": 4,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t4-tracee-20261015001411",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t4.jsonl",
+              "started_at": "2026-10-14T18:44:11Z"
+            },
+            {
+              "trial": 5,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t5-tracee-20261015001513",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t5.jsonl",
+              "started_at": "2026-10-14T18:45:13Z"
+            },
+            {
+              "trial": 6,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t6-tracee-20261015001616",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t6.jsonl",
+              "started_at": "2026-10-14T18:46:16Z"
+            },
+            {
+              "trial": 7,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t7-tracee-20261015001718",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t7.jsonl",
+              "started_at": "2026-10-14T18:47:18Z"
+            },
+            {
+              "trial": 8,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t8-tracee-20261015001820",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t8.jsonl",
+              "started_at": "2026-10-14T18:48:20Z"
+            },
+            {
+              "trial": 9,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t9-tracee-20261015001923",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t9.jsonl",
+              "started_at": "2026-10-14T18:49:23Z"
+            },
+            {
+              "trial": 10,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "67 telemetry events, no qualifying signature fired",
+              "run_id": "run-A3_tracee_t10-tracee-20261015002025",
+              "evidence_events": "results/raw/tracee_events/A3_tracee_t10.jsonl",
+              "started_at": "2026-10-14T18:50:25Z"
+            }
+          ]
+        },
+        "tetB": {
+          "tool": "Tetragon",
+          "config": "baseline",
+          "track_key": "tetragon_baseline",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 3
+          },
+          "trials_executed": 3,
+          "trials_total": 3,
+          "valid_trials": 3,
+          "detections": 0,
+          "expected": "TELEMETRY_ONLY",
+          "config_note": "sched_process_exec telemetry",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "generic tracing-policy telemetry (no selective detection policy)",
+              "run_id": "run-A3_tetB_t1-20261014132922",
+              "evidence_events": "results/raw/tetragon_events/A3_tetB_t1.jsonl",
+              "started_at": "2026-10-14T07:59:22Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "generic tracing-policy telemetry (no selective detection policy)",
+              "run_id": "run-A3_tetB_t2-20261014132928",
+              "evidence_events": "results/raw/tetragon_events/A3_tetB_t2.jsonl",
+              "started_at": "2026-10-14T07:59:28Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "generic tracing-policy telemetry (no selective detection policy)",
+              "run_id": "run-A3_tetB_t3-20261014132935",
+              "evidence_events": "results/raw/tetragon_events/A3_tetB_t3.jsonl",
+              "started_at": "2026-10-14T07:59:35Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "A5",
+      "title": "Drop-and-Execute New Binary",
+      "mitre": [
+        "T1204 User Execution",
+        "T1059 Command and Scripting Interpreter"
+      ],
+      "technique_note": "Copies /bin/busybox to /tmp/labdrop and executes it \u2014 a benign stand-in for the 'drop a payload and run it' pattern. No real malware; busybox is already present.",
+      "payload": "cp /bin/busybox /tmp/labdrop && /tmp/labdrop id",
+      "hypothesis": "A tool with a drop-and-execute rule/signature flags a newly written file being executed; a telemetry-only tool only records the write+exec.",
+      "success_criteria": "A qualifying detection naming drop-and-execute / a newly-dropped executable in the executed run.",
+      "detection_objective": "Detect execution of a newly written binary.",
+      "cells": {
+        "falco": {
+          "tool": "Falco",
+          "config": "configured",
+          "track_key": "falco",
+          "headline_outcome": "DETECTED",
+          "trial_counts": {
+            "DETECTED": 7
+          },
+          "trials_executed": 7,
+          "trials_total": 7,
+          "valid_trials": 7,
+          "detections": 7,
+          "expected": "DETECTED (Drop and execute new binary in container)",
+          "config_note": "built-in security rules",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Drop and execute new binary in container ['mitre_persistence']",
+              "run_id": "run-A5_falco_t1-falco-20261015083359",
+              "evidence_events": "results/raw/falco_events/A5_falco_t1.jsonl",
+              "started_at": "2026-10-15T03:03:59Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Drop and execute new binary in container ['mitre_persistence']",
+              "run_id": "run-A5_falco_t2-falco-20261015083504",
+              "evidence_events": "results/raw/falco_events/A5_falco_t2.jsonl",
+              "started_at": "2026-10-15T03:05:04Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Drop and execute new binary in container ['mitre_persistence']",
+              "run_id": "run-A5_falco_t3-falco-20261015083609",
+              "evidence_events": "results/raw/falco_events/A5_falco_t3.jsonl",
+              "started_at": "2026-10-15T03:06:09Z"
+            },
+            {
+              "trial": 4,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Drop and execute new binary in container ['mitre_persistence']",
+              "run_id": "run-A5_falco_t4-falco-20261015083715",
+              "evidence_events": "results/raw/falco_events/A5_falco_t4.jsonl",
+              "started_at": "2026-10-15T03:07:15Z"
+            },
+            {
+              "trial": 5,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Drop and execute new binary in container ['mitre_persistence']",
+              "run_id": "run-A5_falco_t5-falco-20261015083820",
+              "evidence_events": "results/raw/falco_events/A5_falco_t5.jsonl",
+              "started_at": "2026-10-15T03:08:20Z"
+            },
+            {
+              "trial": 6,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Drop and execute new binary in container ['mitre_persistence']",
+              "run_id": "run-A5_falco_t6-falco-20261015083925",
+              "evidence_events": "results/raw/falco_events/A5_falco_t6.jsonl",
+              "started_at": "2026-10-15T03:09:25Z"
+            },
+            {
+              "trial": 7,
+              "outcome": "DETECTED",
+              "detail": "built-in rule fired: Drop and execute new binary in container ['mitre_persistence']",
+              "run_id": "run-A5_falco_t7-falco-20261015084031",
+              "evidence_events": "results/raw/falco_events/A5_falco_t7.jsonl",
+              "started_at": "2026-10-15T03:10:31Z"
+            }
+          ]
+        },
+        "tracee": {
+          "tool": "Tracee",
+          "config": "baseline",
+          "track_key": "tracee",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 7
+          },
+          "trials_executed": 7,
+          "trials_total": 7,
+          "valid_trials": 7,
+          "detections": 0,
+          "expected": "observe actual signature outcome",
+          "config_note": "behavioral signatures (dropped_executable)",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "14 telemetry events, no qualifying signature fired",
+              "run_id": "run-A5_tracee_t1-tracee-20261015083412",
+              "evidence_events": "results/raw/tracee_events/A5_tracee_t1.jsonl",
+              "started_at": "2026-10-15T03:04:12Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "14 telemetry events, no qualifying signature fired",
+              "run_id": "run-A5_tracee_t2-tracee-20261015083515",
+              "evidence_events": "results/raw/tracee_events/A5_tracee_t2.jsonl",
+              "started_at": "2026-10-15T03:05:15Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "14 telemetry events, no qualifying signature fired",
+              "run_id": "run-A5_tracee_t3-tracee-20261015083623",
+              "evidence_events": "results/raw/tracee_events/A5_tracee_t3.jsonl",
+              "started_at": "2026-10-15T03:06:23Z"
+            },
+            {
+              "trial": 4,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "14 telemetry events, no qualifying signature fired",
+              "run_id": "run-A5_tracee_t4-tracee-20261015083729",
+              "evidence_events": "results/raw/tracee_events/A5_tracee_t4.jsonl",
+              "started_at": "2026-10-15T03:07:29Z"
+            },
+            {
+              "trial": 5,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "14 telemetry events, no qualifying signature fired",
+              "run_id": "run-A5_tracee_t5-tracee-20261015083833",
+              "evidence_events": "results/raw/tracee_events/A5_tracee_t5.jsonl",
+              "started_at": "2026-10-15T03:08:33Z"
+            },
+            {
+              "trial": 6,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "14 telemetry events, no qualifying signature fired",
+              "run_id": "run-A5_tracee_t6-tracee-20261015083939",
+              "evidence_events": "results/raw/tracee_events/A5_tracee_t6.jsonl",
+              "started_at": "2026-10-15T03:09:39Z"
+            },
+            {
+              "trial": 7,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "14 telemetry events, no qualifying signature fired",
+              "run_id": "run-A5_tracee_t7-tracee-20261015084043",
+              "evidence_events": "results/raw/tracee_events/A5_tracee_t7.jsonl",
+              "started_at": "2026-10-15T03:10:43Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "A6",
+      "title": "Sudoers Modification",
+      "mitre": [
+        "T1548.003 Sudo and Sudo Caching"
+      ],
+      "technique_note": "Appends a comment line to /etc/sudoers.d/labtest inside the throwaway container \u2014 a benign stand-in for privilege-config tampering. Nothing is granted; the container is discarded.",
+      "payload": "mkdir -p /etc/sudoers.d; echo '# lab' >> /etc/sudoers.d/labtest",
+      "hypothesis": "A tool with a sudoers-modification signature/rule flags writes to the sudoers configuration; a telemetry-only tool only records the file write.",
+      "success_criteria": "A qualifying detection naming sudoers modification in the executed run.",
+      "detection_objective": "Detect modification of the sudoers configuration.",
+      "cells": {
+        "falco": {
+          "tool": "Falco",
+          "config": "configured",
+          "track_key": "falco",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 3
+          },
+          "trials_executed": 3,
+          "trials_total": 3,
+          "valid_trials": 3,
+          "detections": 0,
+          "expected": "observe actual rule outcome",
+          "config_note": "built-in security rules",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A6_falco_t1-falco-20261016122008",
+              "evidence_events": "results/raw/falco_events/A6_falco_t1.jsonl",
+              "started_at": "2026-10-16T06:50:08Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A6_falco_t2-falco-20261016122110",
+              "evidence_events": "results/raw/falco_events/A6_falco_t2.jsonl",
+              "started_at": "2026-10-16T06:51:10Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A6_falco_t3-falco-20261016122212",
+              "evidence_events": "results/raw/falco_events/A6_falco_t3.jsonl",
+              "started_at": "2026-10-16T06:52:12Z"
+            }
+          ]
+        },
+        "tracee": {
+          "tool": "Tracee",
+          "config": "baseline",
+          "track_key": "tracee",
+          "headline_outcome": "DETECTED",
+          "trial_counts": {
+            "DETECTED": 3
+          },
+          "trials_executed": 3,
+          "trials_total": 3,
+          "valid_trials": 3,
+          "detections": 3,
+          "expected": "DETECTED (sudoers_modification)",
+          "config_note": "behavioral signatures (sudoers_modification)",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "DETECTED",
+              "detail": "Tracee behavioral signature fired: sudoers_modification",
+              "run_id": "run-A6_tracee_t1-tracee-20261016122020",
+              "evidence_events": "results/raw/tracee_events/A6_tracee_t1.jsonl",
+              "started_at": "2026-10-16T06:50:20Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "DETECTED",
+              "detail": "Tracee behavioral signature fired: sudoers_modification",
+              "run_id": "run-A6_tracee_t2-tracee-20261016122121",
+              "evidence_events": "results/raw/tracee_events/A6_tracee_t2.jsonl",
+              "started_at": "2026-10-16T06:51:21Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "DETECTED",
+              "detail": "Tracee behavioral signature fired: sudoers_modification",
+              "run_id": "run-A6_tracee_t3-tracee-20261016122224",
+              "evidence_events": "results/raw/tracee_events/A6_tracee_t3.jsonl",
+              "started_at": "2026-10-16T06:52:24Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "A7",
+      "title": "Benign Control (specificity check)",
+      "mitre": [
+        "(none \u2014 benign baseline)"
+      ],
+      "technique_note": "Ordinary, harmless activity: print a string, list /tmp, read the hostname. Used to confirm the configured detections are specific and do NOT fire on normal behavior.",
+      "payload": "echo hello; ls /tmp >/dev/null; cat /etc/hostname >/dev/null",
+      "hypothesis": "Narrowly-scoped detection rules/signatures should NOT raise a qualifying detection on ordinary activity.",
+      "success_criteria": "No qualifying detection (a detection here would indicate an over-broad rule).",
+      "detection_objective": "Confirm specificity \u2014 expect NO detection.",
+      "cells": {
+        "falco": {
+          "tool": "Falco",
+          "config": "configured",
+          "track_key": "falco",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 3
+          },
+          "trials_executed": 3,
+          "trials_total": 3,
+          "valid_trials": 3,
+          "detections": 0,
+          "expected": "TELEMETRY_ONLY (no detection expected)",
+          "config_note": "built-in security rules",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A7_falco_t1-falco-20261016122314",
+              "evidence_events": "results/raw/falco_events/A7_falco_t1.jsonl",
+              "started_at": "2026-10-16T06:53:14Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A7_falco_t2-falco-20261016122418",
+              "evidence_events": "results/raw/falco_events/A7_falco_t2.jsonl",
+              "started_at": "2026-10-16T06:54:18Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "only the custom process-execution Notice rule fired (telemetry-grade)",
+              "run_id": "run-A7_falco_t3-falco-20261016122520",
+              "evidence_events": "results/raw/falco_events/A7_falco_t3.jsonl",
+              "started_at": "2026-10-16T06:55:20Z"
+            }
+          ]
+        },
+        "tracee": {
+          "tool": "Tracee",
+          "config": "baseline",
+          "track_key": "tracee",
+          "headline_outcome": "TELEMETRY_ONLY",
+          "trial_counts": {
+            "TELEMETRY_ONLY": 3
+          },
+          "trials_executed": 3,
+          "trials_total": 3,
+          "valid_trials": 3,
+          "detections": 0,
+          "expected": "TELEMETRY_ONLY (no detection expected)",
+          "config_note": "behavioral signatures",
+          "trials": [
+            {
+              "trial": 1,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "15 telemetry events, no qualifying signature fired",
+              "run_id": "run-A7_tracee_t1-tracee-20261016122327",
+              "evidence_events": "results/raw/tracee_events/A7_tracee_t1.jsonl",
+              "started_at": "2026-10-16T06:53:27Z"
+            },
+            {
+              "trial": 2,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "15 telemetry events, no qualifying signature fired",
+              "run_id": "run-A7_tracee_t2-tracee-20261016122429",
+              "evidence_events": "results/raw/tracee_events/A7_tracee_t2.jsonl",
+              "started_at": "2026-10-16T06:54:29Z"
+            },
+            {
+              "trial": 3,
+              "outcome": "TELEMETRY_ONLY",
+              "detail": "15 telemetry events, no qualifying signature fired",
+              "run_id": "run-A7_tracee_t3-tracee-20261016122532",
+              "evidence_events": "results/raw/tracee_events/A7_tracee_t3.jsonl",
+              "started_at": "2026-10-16T06:55:32Z"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "benign_control": {
+    "scenario": "A7",
+    "rows": [
+      {
+        "tool": "Falco",
+        "config": "configured",
+        "false_positive_detections": 0,
+        "valid_trials": 3,
+        "specific": true
+      },
+      {
+        "tool": "Tracee",
+        "config": "baseline",
+        "false_positive_detections": 0,
+        "valid_trials": 3,
+        "specific": true
+      }
+    ],
+    "all_specific": true,
+    "note": "On the benign control, a qualifying detection would indicate an over-broad rule/signature. Zero detections across tools confirms the configured detections are specific to the targeted behaviors."
+  },
+  "detection_rates": {
+    "baseline": {
+      "detections": 1,
+      "eligible_evaluations": 8,
+      "rate": 0.125
+    },
+    "configured": {
+      "detections": 3,
+      "eligible_evaluations": 6,
+      "rate": 0.5
+    }
+  },
+  "per_scenario_rates": [
+    {
+      "scenario": "A1",
+      "title": "Credential Access \u2014 sensitive file read",
+      "condition": "baseline",
+      "tools": [
+        "Tetragon",
+        "Tracee"
+      ],
+      "detection_trials": 0,
+      "valid_trials": 13,
+      "rate": 0.0
+    },
+    {
+      "scenario": "A1",
+      "title": "Credential Access \u2014 sensitive file read",
+      "condition": "configured",
+      "tools": [
+        "Falco",
+        "Tetragon"
+      ],
+      "detection_trials": 13,
+      "valid_trials": 13,
+      "rate": 1.0
+    },
+    {
+      "scenario": "A2",
+      "title": "Nested Shell Execution",
+      "condition": "baseline",
+      "tools": [
+        "Tetragon",
+        "Tracee"
+      ],
+      "detection_trials": 0,
+      "valid_trials": 13,
+      "rate": 0.0
+    },
+    {
+      "scenario": "A2",
+      "title": "Nested Shell Execution",
+      "condition": "configured",
+      "tools": [
+        "Falco"
+      ],
+      "detection_trials": 0,
+      "valid_trials": 10,
+      "rate": 0.0
+    },
+    {
+      "scenario": "A3",
+      "title": "Host / Container Discovery",
+      "condition": "baseline",
+      "tools": [
+        "Tetragon",
+        "Tracee"
+      ],
+      "detection_trials": 0,
+      "valid_trials": 13,
+      "rate": 0.0
+    },
+    {
+      "scenario": "A3",
+      "title": "Host / Container Discovery",
+      "condition": "configured",
+      "tools": [
+        "Falco"
+      ],
+      "detection_trials": 0,
+      "valid_trials": 10,
+      "rate": 0.0
+    },
+    {
+      "scenario": "A5",
+      "title": "Drop-and-Execute New Binary",
+      "condition": "baseline",
+      "tools": [
+        "Tracee"
+      ],
+      "detection_trials": 0,
+      "valid_trials": 7,
+      "rate": 0.0
+    },
+    {
+      "scenario": "A5",
+      "title": "Drop-and-Execute New Binary",
+      "condition": "configured",
+      "tools": [
+        "Falco"
+      ],
+      "detection_trials": 7,
+      "valid_trials": 7,
+      "rate": 1.0
+    },
+    {
+      "scenario": "A6",
+      "title": "Sudoers Modification",
+      "condition": "baseline",
+      "tools": [
+        "Tracee"
+      ],
+      "detection_trials": 3,
+      "valid_trials": 3,
+      "rate": 1.0
+    },
+    {
+      "scenario": "A6",
+      "title": "Sudoers Modification",
+      "condition": "configured",
+      "tools": [
+        "Falco"
+      ],
+      "detection_trials": 0,
+      "valid_trials": 3,
+      "rate": 0.0
+    }
+  ],
+  "per_tool_config": {
+    "Falco (configured)": {
+      "detected": 2,
+      "eligible": 6,
+      "trials": 43
+    },
+    "Tracee (baseline)": {
+      "detected": 1,
+      "eligible": 6,
+      "trials": 43
+    },
+    "Tetragon (baseline)": {
+      "detected": 0,
+      "eligible": 3,
+      "trials": 9
+    },
+    "Tetragon (configured)": {
+      "detected": 1,
+      "eligible": 1,
+      "trials": 3
+    }
+  },
+  "coverage_note": "Configured coverage is uneven: Falco ran all scenarios; Tetragon-configured ran only the sensitive-file objective (A1); Tracee-configured was not implemented (no signatures engine). The aggregate configured rate is therefore NOT a universal improvement \u2014 see per-scenario rates, where detection is concentrated in A1."
+}

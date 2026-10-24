@@ -1,0 +1,33 @@
+{
+  "run_id": "run-A5_tracee_t3-tracee-20261015083623",
+  "run_label": "A5_tracee_t3",
+  "tool": "tracee",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-15T03:06:23Z",
+  "ended_at": "2026-10-15T03:07:15Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c cp /bin/busybox /tmp/labdrop && /tmp/labdrop id",
+  "container_id": "11dad6621dd14c5fdd8fb1b987194d3aaa10028421d8cbceb5ba0ff104f9fd10",
+  "container_short": "11dad6621dd1",
+  "tool_version": "aquasec/tracee:latest",
+  "events_configured": "dropped_executable,fileless_execution,execve,security_file_open,magic_write",
+  "scoped_event_count": 14,
+  "event_counts": {
+    "execve": 2,
+    "security_file_open": 12
+  },
+  "processes_observed": [
+    "cp",
+    "labdrop"
+  ],
+  "openat_paths": [
+    "/bin/busybox",
+    "/lib/ld-musl-aarch64.so.1",
+    "/tmp/labdrop"
+  ],
+  "connects": [],
+  "matched_policies": [],
+  "signature_detections": {},
+  "evidence_events": "results/raw/tracee_events/A5_tracee_t3.jsonl"
+}

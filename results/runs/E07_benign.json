@@ -1,0 +1,33 @@
+{
+  "run_id": "run-E07_benign-20261014122747",
+  "run_label": "E07_benign",
+  "tool": "tetragon",
+  "provenance": "live",
+  "started_at": "2026-10-14T06:57:47Z",
+  "ended_at": "2026-10-14T06:57:55Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c cat /etc/alpine-release >/dev/null",
+  "container_id": "73bb9ad778f009774a56cb3b1972b22b1edbc2a5983d269583ab01f6e6623d4d",
+  "container_short": "73bb9ad778f0",
+  "tool_version": "quay.io/cilium/tetragon:v1.6.0",
+  "policies": [
+    "ebpf-lab-process-exec (sched_process_exec)",
+    "ebpf-lab-file-access (sys_openat pathname)"
+  ],
+  "scoped_event_count": 7,
+  "event_counts": {
+    "process_exec": 2,
+    "sched_process_exec": 2,
+    "openat_kprobe": 2,
+    "process_exit": 1
+  },
+  "processes_observed": [
+    "sh",
+    "cat"
+  ],
+  "openat_paths": [
+    "/dev/null",
+    "/etc/alpine-release"
+  ],
+  "evidence_events": "results/raw/tetragon_events/E07_benign.jsonl"
+}

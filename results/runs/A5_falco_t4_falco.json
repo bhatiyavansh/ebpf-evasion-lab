@@ -1,0 +1,93 @@
+{
+  "run_id": "run-A5_falco_t4-falco-20261015083715",
+  "run_label": "A5_falco_t4",
+  "tool": "falco",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-15T03:07:15Z",
+  "ended_at": "2026-10-15T03:07:29Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c cp /bin/busybox /tmp/labdrop && /tmp/labdrop id",
+  "container_id": "2b3e8765f2cc0f370ddf964186186129e453cb0fe7a5e57554febde786d32fd0",
+  "container_short": "2b3e8765f2cc",
+  "tool_version": "falcosecurity/falco:0.45.0",
+  "driver": "modern_ebpf",
+  "total_alerts": 3,
+  "qualifying_detections": [
+    {
+      "rule": "Drop and execute new binary in container",
+      "priority": "Critical",
+      "tags": [
+        "PCI_DSS_11.5.1",
+        "TA0003",
+        "container",
+        "maturity_stable",
+        "mitre_persistence",
+        "process"
+      ],
+      "mitre": [
+        "mitre_persistence"
+      ],
+      "output": "2026-10-15T03:07:25.535594008+0000: Critical Executing binary not part of base image | proc_exe=/tmp/labdrop proc_sname= gparent=systemd proc_exe_ino_ctime=1792033645533497168 proc_exe_ino_mtime=1792033645533497168 proc_exe_ino_ctime_duration_proc_start=18446744073579937008 proc_cwd=/ container_start_ts=1792033644989345224 evt_type=execve user=root user_uid=0 user_loginuid=-1 process=labdrop proc_exepath=/tmp/labdrop parent=containerd-shim command=labdrop id terminal=0 exe_flags=EXE_WRITABLE|EXE_UPPER_LAYER container_id=2b3e8765f2cc container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "2b3e8765f2cc",
+        "container.start_ts": 1792033644989345224,
+        "evt.arg.flags": "EXE_WRITABLE|EXE_UPPER_LAYER",
+        "evt.time.iso8601": 1792033645535594008,
+        "evt.type": "execve",
+        "proc.aname[2]": "systemd",
+        "proc.cmdline": "labdrop id",
+        "proc.cwd": "/",
+        "proc.exe": "/tmp/labdrop",
+        "proc.exe_ino.ctime": 1792033645533497168,
+        "proc.exe_ino.ctime_duration_proc_start": 18446744073579937008,
+        "proc.exe_ino.mtime": 1792033645533497168,
+        "proc.exepath": "/tmp/labdrop",
+        "proc.name": "labdrop",
+        "proc.pname": "containerd-shim",
+        "proc.sname": "",
+        "proc.tty": 0,
+        "user.loginuid": -1,
+        "user.name": "root",
+        "user.uid": 0
+      }
+    }
+  ],
+  "custom_rule_notices": [
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-15T03:07:25.525762720+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=sh command=sh -c cp /bin/busybox /tmp/labdrop && /tmp/labdrop id container_id=2b3e8765f2cc container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "2b3e8765f2cc",
+        "evt.time.iso8601": 1792033645525762720,
+        "proc.cmdline": "sh -c cp /bin/busybox /tmp/labdrop && /tmp/labdrop id",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-15T03:07:25.532884862+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=cp command=cp /bin/busybox /tmp/labdrop container_id=2b3e8765f2cc container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "2b3e8765f2cc",
+        "evt.time.iso8601": 1792033645532884862,
+        "proc.cmdline": "cp /bin/busybox /tmp/labdrop",
+        "proc.name": "cp"
+      }
+    }
+  ],
+  "evidence_events": "results/raw/falco_events/A5_falco_t4.jsonl"
+}

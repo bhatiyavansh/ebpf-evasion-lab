@@ -1,0 +1,80 @@
+{
+  "run_id": "run-A7_falco_t2-falco-20261016122418",
+  "run_label": "A7_falco_t2",
+  "tool": "falco",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-16T06:54:18Z",
+  "ended_at": "2026-10-16T06:54:29Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c echo hello; ls /tmp >/dev/null; cat /etc/hostname >/dev/null",
+  "container_id": "23518e127d9d587644698ace579547b5d403ce9ef1788cc1f5028cac67392636",
+  "container_short": "23518e127d9d",
+  "tool_version": "falcosecurity/falco:0.45.0",
+  "driver": "modern_ebpf",
+  "total_alerts": 3,
+  "qualifying_detections": [],
+  "custom_rule_notices": [
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-16T06:54:25.842628569+0000: Notice EBPF_LAB process execution container=lab-workload-A7_falco_t2-falco image=alpine:3.20 process=sh command=sh -c echo hello; ls /tmp >/dev/null; cat /etc/hostname >/dev/null container_id=23518e127d9d container_name=lab-workload-A7_falco_t2-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "23518e127d9d",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A7_falco_t2-falco",
+        "evt.time.iso8601": 1792133665842628569,
+        "proc.cmdline": "sh -c echo hello; ls /tmp >/dev/null; cat /etc/hostname >/dev/null",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-16T06:54:25.844401247+0000: Notice EBPF_LAB process execution container=lab-workload-A7_falco_t2-falco image=alpine:3.20 process=ls command=ls /tmp container_id=23518e127d9d container_name=lab-workload-A7_falco_t2-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "23518e127d9d",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A7_falco_t2-falco",
+        "evt.time.iso8601": 1792133665844401247,
+        "proc.cmdline": "ls /tmp",
+        "proc.name": "ls"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-16T06:54:25.844732329+0000: Notice EBPF_LAB process execution container=lab-workload-A7_falco_t2-falco image=alpine:3.20 process=cat command=cat /etc/hostname container_id=23518e127d9d container_name=lab-workload-A7_falco_t2-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "23518e127d9d",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A7_falco_t2-falco",
+        "evt.time.iso8601": 1792133665844732329,
+        "proc.cmdline": "cat /etc/hostname",
+        "proc.name": "cat"
+      }
+    }
+  ],
+  "evidence_events": "results/raw/falco_events/A7_falco_t2.jsonl"
+}

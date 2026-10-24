@@ -1,0 +1,35 @@
+{
+  "run_id": "run-A2_tracee_t9-tracee-20261015001205",
+  "run_label": "A2_tracee_t9",
+  "tool": "tracee",
+  "mode": "baseline",
+  "provenance": "live",
+  "started_at": "2026-10-14T18:42:05Z",
+  "ended_at": "2026-10-14T18:42:56Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c sh -c \"id; uname -a\"",
+  "container_id": "b4ff78868b512fece7f1838169d4cfeb36f2c3e78d6c9a1fdadee9729375931c",
+  "container_short": "b4ff78868b51",
+  "tool_version": "aquasec/tracee:latest",
+  "events_configured": "execve,openat,security_file_open,security_socket_connect",
+  "scoped_event_count": 57,
+  "event_counts": {
+    "execve": 3,
+    "security_file_open": 40,
+    "openat": 14
+  },
+  "processes_observed": [
+    "sh",
+    "id",
+    "uname"
+  ],
+  "openat_paths": [
+    "/bin/busybox",
+    "/etc/group",
+    "/etc/passwd",
+    "/lib/ld-musl-aarch64.so.1"
+  ],
+  "connects": [],
+  "matched_policies": [],
+  "evidence_events": "results/raw/tracee_events/A2_tracee_t9.jsonl"
+}

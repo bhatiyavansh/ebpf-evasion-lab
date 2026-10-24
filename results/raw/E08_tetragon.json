@@ -1,0 +1,26 @@
+{
+  "experiment_id": "E08",
+  "tool": "tetragon",
+  "behavior": "network_activity",
+  "variant": "policy_coverage",
+  "detected": false,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "detection_type": "sched_process_exec_telemetry",
+  "alert_count": 0,
+  "processes_detected": [
+    "sh",
+    "wget",
+    "ssl_client"
+  ],
+  "network_connection_detection": false,
+  "network_detection_status": "not_evaluated",
+  "policy_coverage": {
+    "tetragon_network_policy_configured": false,
+    "explanation": "This lab's Tetragon configuration has process-exec and openat tracing policies but NO network/connect tracing policy. Socket-level connection visibility is therefore not configured, and network-specific detection is NOT EVALUATED for Tetragon \u2014 not failed.",
+    "cross_tool_note": "Tracee (E03) captured the connect to port 443 (network telemetry observed). Falco's fired rule in E03 was process-exec, not network, so Falco's network detection is also NOT EVALUATED in this lab configuration."
+  },
+  "evidence_events": "results/raw/tetragon_events/E08.jsonl",
+  "notes": "Process-execution telemetry captured (sh, wget, ssl_client) plus openat telemetry for TLS material. No connect/socket event was captured because no network tracing policy is configured. Network-specific detection is NOT EVALUATED for Tetragon here, which is distinct from a detection failure."
+}

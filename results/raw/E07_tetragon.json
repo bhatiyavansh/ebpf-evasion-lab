@@ -1,0 +1,40 @@
+{
+  "experiment_id": "E07",
+  "tool": "tetragon",
+  "behavior": "file_access",
+  "variant": "comparative",
+  "detected": false,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "detection_type": "openat_telemetry + sched_process_exec_telemetry",
+  "alert_count": 0,
+  "processes_detected": [
+    "sh",
+    "cat"
+  ],
+  "comparison": {
+    "sensitive": {
+      "path": "/etc/shadow",
+      "run_id": "run-E07_sensitive-20261014122741",
+      "openat_paths": [
+        "/dev/null",
+        "/etc/shadow"
+      ],
+      "target_observed_in_openat": true,
+      "evidence_events": "results/raw/tetragon_events/E07_sensitive.jsonl"
+    },
+    "benign": {
+      "path": "/etc/alpine-release",
+      "run_id": "run-E07_benign-20261014122747",
+      "openat_paths": [
+        "/dev/null",
+        "/etc/alpine-release"
+      ],
+      "target_observed_in_openat": true,
+      "evidence_events": "results/raw/tetragon_events/E07_benign.jsonl"
+    }
+  },
+  "evidence_events": "results/raw/tetragon_events/E07_sensitive.jsonl",
+  "notes": "Both the sensitive read (/etc/shadow) and the benign read (/etc/alpine-release) produced openat telemetry with the correct pathname argument under the ebpf-lab-file-access policy. Tetragon's tracing policy captures the pathname for both but raises no alert for either \u2014 it does not distinguish sensitive from benign at the detection layer (no alerting rule configured). The distinction exists in the telemetry (pathname), not in a detection verdict."
+}

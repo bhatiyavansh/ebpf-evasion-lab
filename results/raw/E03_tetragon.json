@@ -1,0 +1,32 @@
+{
+  "experiment_id": "E03",
+  "tool": "tetragon",
+  "behavior": "network_activity",
+  "variant": "baseline",
+  "collection_status": "complete",
+  "collection_note": null,
+  "workload_exit_code": null,
+  "sensor_health": null,
+  "detected": false,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": [
+    "sh",
+    "wget",
+    "ssl_client"
+  ],
+  "alert_count": 0,
+  "evidence_events": "results/raw/tetragon_events/E03.jsonl",
+  "event_counts": {
+    "sched_process_exec": 3,
+    "process_exec": 3,
+    "openat_kprobe": 11
+  },
+  "container_cgroup_ids": [
+    "f5d3b989aacf"
+  ],
+  "detection_type": "sched_process_exec_telemetry",
+  "network_connection_detection": false,
+  "notes": "Tetragon captured process-execution telemetry for the network workload (sh, wget, ssl_client). No network/connect tracing policy is configured in this lab, so no socket-level connection event was captured and network-specific detection is not established. openat telemetry for TLS material (libssl/cert store) was incidentally observed."
+}

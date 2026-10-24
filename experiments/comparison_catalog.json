@@ -1,0 +1,178 @@
+{
+  "schema_version": "1.0",
+  "description": "Fair detection comparison study. Each scenario is run as 3 live trials per tool/config against a benign throwaway alpine container. Qualifying-detection criteria are defined per tool BEFORE classification and are applied deterministically by scripts/build_comparison.py \u2014 never by an LLM.",
+  "qualifying_detection_criteria": {
+    "falco": "A fired Falco rule whose priority is Warning or higher AND which is not the lab's own process-execution Notice rule. These are Falco's built-in security rules (they carry mitre_*/security tags). The custom process-execution rule is telemetry-grade and never counts as a detection.",
+    "tracee": "An event carrying a non-empty matchedPolicies entry (a documented detection policy matched). With an event-set-only configuration and no signatures engine, Tracee produces telemetry, not detections.",
+    "tetragon_baseline": "Generic tracing-policy telemetry (sched_process_exec, broad openat). This is telemetry, never a detection.",
+    "tetragon_configured": "An event emitted by the selective ebpf-lab-sensitive-file-detect policy, whose matchArgs selector fires ONLY on sensitive pathnames (/etc/shadow, /etc/sudoers, ssh host key). Such a match is a policy-based detection of sensitive-file access."
+  },
+  "scenarios": [
+    {
+      "id": "A1",
+      "title": "Credential Access \u2014 sensitive file read",
+      "mitre": [
+        "T1552.001 Credentials in Files",
+        "T1555 Credentials from Password Stores"
+      ],
+      "technique_note": "Reads /etc/shadow inside a throwaway alpine container. Alpine's /etc/shadow holds no real secret; this exercises the sensitive-file/credential-access detection path without exposing any credential.",
+      "payload": "cat /etc/shadow >/dev/null",
+      "hypothesis": "A tool with a sensitive-file detection rule/policy will raise a qualifying detection; a telemetry-only configuration will observe the open but not detect it.",
+      "success_criteria": "A qualifying detection (per the tool's criterion above) that references the sensitive file in the same executed run.",
+      "detection_objective": "Detect sensitive-file / credential access.",
+      "tracks": {
+        "falco": {
+          "config": "security rules enabled (default)",
+          "expected": "DETECTED"
+        },
+        "tracee": {
+          "config": "event set only (security_file_open telemetry)",
+          "expected": "TELEMETRY_ONLY"
+        },
+        "tetragon_baseline": {
+          "config": "generic openat + exec telemetry",
+          "expected": "TELEMETRY_ONLY"
+        },
+        "tetragon_configured": {
+          "config": "selective sensitive-file matchArgs policy",
+          "expected": "DETECTED"
+        }
+      }
+    },
+    {
+      "id": "A2",
+      "title": "Nested Shell Execution",
+      "mitre": [
+        "T1059.004 Unix Shell"
+      ],
+      "technique_note": "An extra shell layer launches id and uname (sh -c \"id; uname -a\" inside sh -c). Benign commands; the behavioral property under test is process nesting.",
+      "payload": "sh -c \"id; uname -a\"",
+      "hypothesis": "Nested shell execution remains observable; whether it is DETECTED depends on whether a shell/exec security rule is configured.",
+      "success_criteria": "A qualifying detection referencing shell/nested execution in the executed run.",
+      "detection_objective": "Observe / detect nested shell execution.",
+      "tracks": {
+        "falco": {
+          "config": "security rules enabled (default)",
+          "expected": "observe actual rule outcome"
+        },
+        "tracee": {
+          "config": "execve telemetry",
+          "expected": "TELEMETRY_ONLY"
+        },
+        "tetragon_baseline": {
+          "config": "sched_process_exec telemetry",
+          "expected": "TELEMETRY_ONLY"
+        }
+      }
+    },
+    {
+      "id": "A3",
+      "title": "Host / Container Discovery",
+      "mitre": [
+        "T1082 System Information Discovery",
+        "T1033 System Owner/User Discovery"
+      ],
+      "technique_note": "Runs id, uname -a, cat /etc/os-release, hostname \u2014 standard discovery commands. Read-only and benign.",
+      "payload": "id; uname -a; cat /etc/os-release >/dev/null; hostname",
+      "hypothesis": "Discovery commands are observable as process executions; detection depends on discovery-specific rules, which are not configured here.",
+      "success_criteria": "A qualifying detection referencing discovery behavior in the executed run.",
+      "detection_objective": "Observe / detect host-and-container discovery.",
+      "tracks": {
+        "falco": {
+          "config": "security rules enabled (default)",
+          "expected": "observe actual rule outcome"
+        },
+        "tracee": {
+          "config": "execve telemetry",
+          "expected": "TELEMETRY_ONLY"
+        },
+        "tetragon_baseline": {
+          "config": "sched_process_exec telemetry",
+          "expected": "TELEMETRY_ONLY"
+        }
+      }
+    },
+    {
+      "id": "A5",
+      "title": "Drop-and-Execute New Binary",
+      "mitre": [
+        "T1204 User Execution",
+        "T1059 Command and Scripting Interpreter"
+      ],
+      "technique_note": "Copies /bin/busybox to /tmp/labdrop and executes it \u2014 a benign stand-in for the 'drop a payload and run it' pattern. No real malware; busybox is already present.",
+      "payload": "cp /bin/busybox /tmp/labdrop && /tmp/labdrop id",
+      "hypothesis": "A tool with a drop-and-execute rule/signature flags a newly written file being executed; a telemetry-only tool only records the write+exec.",
+      "success_criteria": "A qualifying detection naming drop-and-execute / a newly-dropped executable in the executed run.",
+      "detection_objective": "Detect execution of a newly written binary.",
+      "tracee_events": "dropped_executable,fileless_execution,execve,security_file_open,magic_write",
+      "tracks": {
+        "falco": {
+          "config": "built-in security rules",
+          "expected": "DETECTED (Drop and execute new binary in container)"
+        },
+        "tracee": {
+          "config": "behavioral signatures (dropped_executable)",
+          "expected": "observe actual signature outcome"
+        },
+        "tetragon_baseline": {
+          "config": "live capture regressed",
+          "expected": "COLLECTION_FAILED"
+        }
+      }
+    },
+    {
+      "id": "A6",
+      "title": "Sudoers Modification",
+      "mitre": [
+        "T1548.003 Sudo and Sudo Caching"
+      ],
+      "technique_note": "Appends a comment line to /etc/sudoers.d/labtest inside the throwaway container \u2014 a benign stand-in for privilege-config tampering. Nothing is granted; the container is discarded.",
+      "payload": "mkdir -p /etc/sudoers.d; echo '# lab' >> /etc/sudoers.d/labtest",
+      "hypothesis": "A tool with a sudoers-modification signature/rule flags writes to the sudoers configuration; a telemetry-only tool only records the file write.",
+      "success_criteria": "A qualifying detection naming sudoers modification in the executed run.",
+      "detection_objective": "Detect modification of the sudoers configuration.",
+      "tracee_events": "sudoers_modification,execve,security_file_open",
+      "tracks": {
+        "falco": {
+          "config": "built-in security rules",
+          "expected": "observe actual rule outcome"
+        },
+        "tracee": {
+          "config": "behavioral signatures (sudoers_modification)",
+          "expected": "DETECTED (sudoers_modification)"
+        },
+        "tetragon_baseline": {
+          "config": "live capture regressed",
+          "expected": "COLLECTION_FAILED"
+        }
+      }
+    },
+    {
+      "id": "A7",
+      "title": "Benign Control (specificity check)",
+      "mitre": [
+        "(none \u2014 benign baseline)"
+      ],
+      "technique_note": "Ordinary, harmless activity: print a string, list /tmp, read the hostname. Used to confirm the configured detections are specific and do NOT fire on normal behavior.",
+      "payload": "echo hello; ls /tmp >/dev/null; cat /etc/hostname >/dev/null",
+      "hypothesis": "Narrowly-scoped detection rules/signatures should NOT raise a qualifying detection on ordinary activity.",
+      "success_criteria": "No qualifying detection (a detection here would indicate an over-broad rule).",
+      "detection_objective": "Confirm specificity \u2014 expect NO detection.",
+      "tracee_events": "sudoers_modification,dropped_executable,execve,security_file_open",
+      "tracks": {
+        "falco": {
+          "config": "built-in security rules",
+          "expected": "TELEMETRY_ONLY (no detection expected)"
+        },
+        "tracee": {
+          "config": "behavioral signatures",
+          "expected": "TELEMETRY_ONLY (no detection expected)"
+        },
+        "tetragon_baseline": {
+          "config": "live capture regressed",
+          "expected": "COLLECTION_FAILED"
+        }
+      }
+    }
+  ]
+}

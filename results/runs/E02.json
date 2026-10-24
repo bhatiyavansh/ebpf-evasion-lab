@@ -1,0 +1,33 @@
+{
+  "run_id": "run-E02-20261014171357",
+  "run_label": "E02",
+  "tool": "tetragon",
+  "provenance": "live",
+  "started_at": "2026-10-14T11:43:57Z",
+  "ended_at": "2026-10-14T11:44:03Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c echo EXEC_TEST; id; uname -a",
+  "container_id": "4620608bfe7e0641c1882c337a9c87de7ab9e10e9ef5e55aa5f2d8929807ae23",
+  "container_short": "4620608bfe7e",
+  "tool_version": "quay.io/cilium/tetragon:v1.6.0",
+  "policies": [
+    "ebpf-lab-process-exec (sched_process_exec)",
+    "ebpf-lab-file-access (sys_openat pathname)"
+  ],
+  "scoped_event_count": 0,
+  "event_counts": {
+    "process_exec": 0,
+    "sched_process_exec": 0,
+    "openat_kprobe": 0,
+    "process_exit": 0
+  },
+  "processes_observed": [],
+  "openat_paths": [],
+  "evidence_events": "results/raw/tetragon_events/E02.jsonl",
+  "workload_exit_code": "\ngone",
+  "execution_ok": false,
+  "host_events_in_window": 0,
+  "sensor_health": "no_events_in_window",
+  "collection_status": "execution_failed",
+  "evidence_preserved": true
+}

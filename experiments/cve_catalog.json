@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0",
+  "description": "CVE compatibility & evaluation catalog. Applicability is assessed against the ACTUAL host kernel/arch (see results/env/environment.json), not a version string on a container image. No genuine exploit is executed on the project host; Mode B (isolated reproduction) is blocked and documented. Safe simulations exercise RELATED event categories and are never labeled as real exploitation.",
+  "host_assessment_basis": {
+    "kernel": "7.1.5+kali-arm64",
+    "arch": "aarch64",
+    "distro": "Kali GNU/Linux Rolling",
+    "second_kernel_installed": "6.19.14+kali-arm64",
+    "config_user_ns": "CONFIG_USER_NS=y",
+    "config_nf_tables": "CONFIG_NF_TABLES=m",
+    "config_overlay_fs": "CONFIG_OVERLAY_FS=m",
+    "unprivileged_userns_clone": 1,
+    "note": "Both installed kernels (7.1.5 and 6.19.14) are far newer than every affected range below, so all three CVEs assess as NOT APPLICABLE for genuine reproduction here."
+  },
+  "modes": {
+    "A": "Safe simulation \u2014 benign workloads exercising related process/file/network event categories. NOT proof of exploitation.",
+    "B": "Isolated vulnerable-lab reproduction \u2014 requires a compatible, disposable, snapshot-backed, isolated VM that is explicitly configured and verified. Not implemented automatically. Currently BLOCKED.",
+    "C": "Recorded evidence \u2014 replay of previously captured benign/related telemetry, clearly labeled recorded."
+  },
+  "cves": [
+    {
+      "id": "CVE-2022-0847",
+      "name": "Dirty Pipe",
+      "class": "Uninitialized pipe_buffer.flags \u2014 improper initialization (CWE-665)",
+      "cvss_v3": 7.8,
+      "cvss_severity": "HIGH",
+      "impact": "Local unprivileged user can overwrite data in read-only files, enabling privilege escalation.",
+      "affected_range": "Linux kernel >= 5.8, < fixed releases",
+      "fixed_versions": [
+        "5.16.11",
+        "5.15.25",
+        "5.10.102"
+      ],
+      "sources": [
+        {
+          "label": "NVD CVE-2022-0847",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-0847"
+        },
+        {
+          "label": "JFrog analysis",
+          "url": "https://jfrog.com/blog/dirtypipe-cve-2022-0847-the-new-dirtycow"
+        }
+      ],
+      "applicability": {
+        "status": "NOT_AFFECTED_OR_PATCHED",
+        "reason": "Host kernels 7.1.5 and 6.19.14 are past the fixed 5.x releases (5.16.11/5.15.25/5.10.102); the uninitialized pipe_buffer.flags bug is remediated. Backport risk does not apply: the fix predates these kernels by many releases.",
+        "confidence": "high"
+      },
+      "modes_available": [
+        "A",
+        "C"
+      ],
+      "mode_b_blocked_reason": "Host kernel is not vulnerable and no isolated, snapshot-backed vulnerable VM is configured. Running a Dirty Pipe PoC on the project host is out of scope and prohibited.",
+      "simulation": {
+        "category": "file write / pipe + sensitive-file open telemetry",
+        "benign_workload": "Controlled benign file read of /etc/shadow (E01/E07) \u2014 exercises the openat/file-access telemetry path that a real Dirty Pipe write would also surface, WITHOUT any pipe-splice overwrite.",
+        "related_evidence_experiments": [
+          "E01",
+          "E07"
+        ],
+        "disclaimer": "This simulation only generates related file-access telemetry. It does NOT perform the pipe_buffer overwrite and is NOT evidence of exploitation or detection of Dirty Pipe."
+      },
+      "reproduction_status": "NOT_REPRODUCED",
+      "reproduction_note": "No vulnerable-condition test was run; the host is not vulnerable and no isolated snapshot-backed vulnerable VM was configured. Mode B remains blocked."
+    },
+    {
+      "id": "CVE-2021-3493",
+      "name": "OverlayFS unprivileged capabilities",
+      "class": "Incorrect authorization across user namespaces (CWE-863)",
+      "cvss_v3": 7.8,
+      "cvss_severity": "HIGH",
+      "impact": "Local user gains elevated privileges via OverlayFS + Ubuntu's unprivileged-overlay-mount patch.",
+      "affected_range": "Ubuntu kernels: 4.4 < 4.4.0-209, 4.15 < 4.15.0-142, 5.4 < 5.4.0-72, 5.8 < 5.8.0-50 (Ubuntu-patch-specific)",
+      "fixed_versions": [
+        "5.8.0-50.56",
+        "5.4.0-72.80",
+        "4.15.0-142.146",
+        "4.4.0-209.241"
+      ],
+      "sources": [
+        {
+          "label": "NVD CVE-2021-3493",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-3493"
+        },
+        {
+          "label": "Ubuntu CVE tracker",
+          "url": "https://ubuntu.com/security/CVE-2021-3493"
+        }
+      ],
+      "applicability": {
+        "status": "INCOMPATIBLE_ENVIRONMENT",
+        "reason": "The flaw depends on Ubuntu's unprivileged-overlay-mount patch. The host is Kali (not Ubuntu) on kernel 7.1.5; the required Ubuntu-specific patch is absent and the kernel is far past any affected Ubuntu build, so the environment cannot exhibit it.",
+        "confidence": "high"
+      },
+      "modes_available": [
+        "A",
+        "C"
+      ],
+      "mode_b_blocked_reason": "Wrong distribution and non-vulnerable kernel; a genuine test needs a disposable Ubuntu VM at an affected build, which is not configured. Not run on the project host.",
+      "simulation": {
+        "category": "process execution + container/namespace context telemetry",
+        "benign_workload": "Benign process-execution workloads in a container (E02/E04) \u2014 exercises the process/namespace-context telemetry a privilege-escalation chain would also touch, WITHOUT any overlay mount or capability abuse.",
+        "related_evidence_experiments": [
+          "E02",
+          "E04"
+        ],
+        "disclaimer": "Simulation generates only benign process-execution telemetry with container context. It performs NO overlay mount and NO privilege change; it is not evidence of OverlayFS exploitation or its detection."
+      },
+      "reproduction_status": "NOT_REPRODUCED",
+      "reproduction_note": "No vulnerable-condition test was run; the host is not vulnerable and no isolated snapshot-backed vulnerable VM was configured. Mode B remains blocked."
+    },
+    {
+      "id": "CVE-2024-1086",
+      "name": "netfilter nf_tables use-after-free",
+      "class": "Use-after-free in nft_verdict_init / nf_hook_slow (CWE-416)",
+      "cvss_v3": 7.8,
+      "cvss_severity": "HIGH",
+      "impact": "Local privilege escalation via a double-free reachable through nf_tables, typically entered through unprivileged user namespaces.",
+      "affected_range": "Linux kernel >= 3.15, < 6.8-rc1 (per-branch fixes below)",
+      "fixed_versions": [
+        "5.15.149",
+        "6.1.76",
+        "6.6.15",
+        "6.7.3"
+      ],
+      "sources": [
+        {
+          "label": "NVD CVE-2024-1086",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-1086"
+        },
+        {
+          "label": "kernel.org stable fix",
+          "url": "https://git.kernel.org/stable/c/f342de4e2f33e0e39165d8639387aa6c19dff660"
+        }
+      ],
+      "applicability": {
+        "status": "NOT_AFFECTED_OR_PATCHED",
+        "reason": "Affected range ends before 6.8; host kernels 7.1.5 and 6.19.14 are past the last fixed branch (6.7.3). nf_tables and user namespaces are present, but the specific nft_verdict_init UAF was fixed before these versions.",
+        "confidence": "high"
+      },
+      "modes_available": [
+        "A",
+        "C"
+      ],
+      "mode_b_blocked_reason": "Host kernel is past the fixed range; a genuine test needs an isolated VM pinned to an affected kernel (e.g. 6.6.x < 6.6.15). Not configured, and exploit execution on the project host is prohibited.",
+      "simulation": {
+        "category": "network + process-execution telemetry",
+        "benign_workload": "Benign outbound HTTPS request (E03/E08) \u2014 exercises the network and process-execution telemetry surface associated with a netfilter-adjacent workload, WITHOUT touching nf_tables internals or triggering the UAF.",
+        "related_evidence_experiments": [
+          "E03",
+          "E08"
+        ],
+        "disclaimer": "Simulation generates only benign network/process telemetry. It does NOT interact with nf_tables verdict handling and is NOT evidence of exploitation or detection of CVE-2024-1086."
+      },
+      "reproduction_status": "NOT_REPRODUCED",
+      "reproduction_note": "No vulnerable-condition test was run; the host is not vulnerable and no isolated snapshot-backed vulnerable VM was configured. Mode B remains blocked."
+    }
+  ]
+}

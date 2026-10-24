@@ -1,0 +1,31 @@
+{
+  "experiment_id": "E02",
+  "tool": "tetragon",
+  "behavior": "process_execution",
+  "variant": "baseline",
+  "collection_status": "execution_failed",
+  "collection_note": null,
+  "workload_exit_code": "\ngone",
+  "sensor_health": "no_events_in_window",
+  "detected": false,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "processes_detected": [
+    "sh",
+    "id",
+    "uname"
+  ],
+  "alert_count": 0,
+  "evidence_events": "results/raw/tetragon_events/E02.jsonl",
+  "event_counts": {
+    "sched_process_exec": 3,
+    "process_exec": 3,
+    "openat_kprobe": 14
+  },
+  "container_cgroup_ids": [
+    "4d0f14b47fff"
+  ],
+  "detection_type": "sched_process_exec_telemetry",
+  "notes": "Tetragon observed sched_process_exec telemetry for sh, id, uname inside the controlled Alpine container. Container metadata (cgroup id) was enriched on each exec event. This is telemetry observed, not a confirmed security detection (no alerting policy was evaluated)."
+}

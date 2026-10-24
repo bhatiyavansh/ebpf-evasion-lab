@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.0",
+  "description": "Canonical experiment catalog for the Adaptive eBPF Security Lab. This is the single source of truth for experiment definitions. Per-tool *.json files in this directory are the original per-run definitions and are preserved for provenance; the pipeline reads this catalog.",
+  "detectors": {
+    "falco": {
+      "label": "Falco",
+      "role": "Rule/alerting engine over syscall events",
+      "has_alerting_engine": true,
+      "configured_events": "execve/execveat via custom container process-execution rule + built-in ruleset",
+      "image": "falcosecurity/falco:0.45.0"
+    },
+    "tracee": {
+      "label": "Tracee",
+      "role": "eBPF telemetry collector (no signatures engine configured in this lab)",
+      "has_alerting_engine": false,
+      "configured_events": "execve, openat, connect",
+      "image": "aquasec/tracee:latest"
+    },
+    "tetragon": {
+      "label": "Tetragon",
+      "role": "eBPF tracing-policy telemetry (no alerting/enforcement configured in this lab)",
+      "has_alerting_engine": false,
+      "configured_events": "sched_process_exec tracepoint, sys_openat kprobe (pathname arg)",
+      "image": "quay.io/cilium/tetragon:v1.6.0"
+    }
+  },
+  "experiments": [
+    {
+      "id": "E01",
+      "title": "Sensitive File Access",
+      "behavior": "sensitive_file_read",
+      "variant": "baseline",
+      "purpose": "Determine whether reading a sensitive file (/etc/shadow) inside a container is visible to, and detected by, each runtime-security system.",
+      "target_path": "/etc/shadow",
+      "command": "sh -c 'cat /etc/shadow >/dev/null'",
+      "shell_payload": "cat /etc/shadow >/dev/null",
+      "expected_observation": "The open of /etc/shadow is visible at the kernel level; Falco's built-in sensitive-file rule is expected to raise a security detection.",
+      "tools": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ]
+    },
+    {
+      "id": "E02",
+      "title": "Process Execution",
+      "behavior": "process_execution",
+      "variant": "baseline",
+      "purpose": "Establish baseline process-execution observability for benign commands inside a container.",
+      "command": "sh -c 'echo EXEC_TEST; id; uname -a'",
+      "expected_observation": "execve events for sh, id, and uname are visible with container context.",
+      "tools": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "shell_payload": "echo EXEC_TEST; id; uname -a"
+    },
+    {
+      "id": "E03",
+      "title": "Network Activity",
+      "behavior": "network_activity",
+      "variant": "baseline",
+      "purpose": "Determine whether an outbound HTTPS request from a container is observable, distinguishing process-execution telemetry from network-connection visibility.",
+      "command": "sh -c 'wget -q -O /dev/null https://example.com'",
+      "expected_observation": "Process-execution telemetry for wget is expected. Network-connection (connect) visibility depends on whether each tool is configured with a network event source.",
+      "tools": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "shell_payload": "wget -q -O /dev/null https://example.com"
+    },
+    {
+      "id": "E04",
+      "title": "Indirect Execution",
+      "behavior": "process_execution",
+      "variant": "indirect_execution",
+      "purpose": "Test whether introducing an additional shell layer (execution indirection) reduces process-execution observability relative to the E02 baseline.",
+      "baseline_reference": "E02",
+      "command": "sh -c 'sh -c \"echo ADAPTIVE_INDIRECT_EXEC; id\"'",
+      "expected_observation": "All execution stages (both shell layers and the final command) remain visible.",
+      "tools": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "shell_payload": "sh -c \"echo ADAPTIVE_INDIRECT_EXEC; id\""
+    },
+    {
+      "id": "E05",
+      "title": "Timing Variation",
+      "behavior": "process_execution",
+      "variant": "timing_variation",
+      "purpose": "Test whether inserting controlled two-second delays between commands reduces process-execution observability relative to the E02 baseline.",
+      "baseline_reference": "E02",
+      "command": "sh -c 'echo TIMING_TEST_1; sleep 2; echo TIMING_TEST_2; sleep 2; id'",
+      "timing_intervals_seconds": [
+        2,
+        2
+      ],
+      "expected_observation": "All execution events remain visible despite the inserted delays.",
+      "tools": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "shell_payload": "echo TIMING_TEST_1; sleep 2; echo TIMING_TEST_2; sleep 2; id"
+    },
+    {
+      "id": "E06",
+      "title": "Repeated Baseline Consistency",
+      "behavior": "process_execution",
+      "variant": "repeatability",
+      "purpose": "Run a deterministic benign process-execution workload five times to describe repeatability of process-execution telemetry capture (exploratory, not statistical proof).",
+      "command": "sh -c 'echo REPEAT_TRIAL; id'",
+      "shell_payload": "echo REPEAT_TRIAL; id",
+      "expected_observation": "Each of the 5 trials captures the same sh,id execution chain; trial-to-trial variation (if any) is described, not aggregated into a significance claim.",
+      "baseline_reference": "E02",
+      "trials": 5,
+      "tools": [
+        "tetragon"
+      ]
+    },
+    {
+      "id": "E07",
+      "title": "Sensitive vs Benign File Access",
+      "behavior": "file_access",
+      "variant": "comparative",
+      "purpose": "Compare telemetry and rule coverage for reading a sensitive file (/etc/shadow) versus a harmless ordinary file, using only safe read operations.",
+      "command": "sh -c 'cat /etc/shadow >/dev/null' vs sh -c 'cat /tmp/benign.txt >/dev/null'",
+      "shell_payload": "cat /etc/shadow >/dev/null",
+      "shell_payload_benign": "cat /etc/alpine-release >/dev/null",
+      "target_path": "/etc/shadow",
+      "benign_path": "/etc/alpine-release",
+      "expected_observation": "Both reads generate openat telemetry; a sensitive-path rule (where configured) should distinguish the sensitive read. Tetragon tracing policy captures both pathnames but does not alert on either.",
+      "tools": [
+        "tetragon"
+      ]
+    },
+    {
+      "id": "E08",
+      "title": "Network Observability & Policy Coverage",
+      "behavior": "network_activity",
+      "variant": "policy_coverage",
+      "purpose": "Evaluate network observability versus network-specific detection, after inspecting each tool's actual network event/policy configuration. Separates telemetry from alerts; labels detection NOT EVALUATED where no network policy exists.",
+      "command": "sh -c 'wget -q -O /dev/null https://example.com'",
+      "shell_payload": "wget -q -O /dev/null https://example.com",
+      "target_endpoint": "https://example.com (TCP 443)",
+      "expected_observation": "Process-execution telemetry is captured by all tools. Socket/connect visibility depends on configuration: Tracee has a connect event source; Falco and Tetragon (this lab) have no network policy, so their network detection is NOT EVALUATED, not failed.",
+      "tools": [
+        "tetragon"
+      ]
+    },
+    {
+      "id": "E09",
+      "title": "Process Sequence & Timing Comparison",
+      "behavior": "process_execution",
+      "variant": "derived_comparison",
+      "purpose": "Derived comparison of the baseline (E02), indirect-shell (E04) and timing-variation (E05) process chains and captured event ordering, using existing evidence. No new capture.",
+      "command": "(derived from E02, E04, E05 evidence)",
+      "derived_from": [
+        "E02",
+        "E04",
+        "E05"
+      ],
+      "expected_observation": "The process chain changes across variants (sh,id \u2192 sh,sh,id \u2192 sh,sleep,sleep,id) while every stage remains observable. This describes observability, not evasion.",
+      "tools": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "derived": true
+    }
+  ]
+}

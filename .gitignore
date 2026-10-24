@@ -119,3 +119,5 @@ docker-compose.override.yml
 *.sqlite
 *.sqlite3
 *.db
+# Local pinned Node toolchain (reproduced via scripts/setup_node.sh)
+.toolchain/

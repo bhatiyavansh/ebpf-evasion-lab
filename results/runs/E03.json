@@ -1,0 +1,41 @@
+{
+  "run_id": "run-E03-20261014122942",
+  "run_label": "E03",
+  "tool": "tetragon",
+  "provenance": "live",
+  "started_at": "2026-10-14T06:59:42Z",
+  "ended_at": "2026-10-14T06:59:48Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c wget -q -O /dev/null https://example.com",
+  "container_id": "f5d3b989aacfc688be59afbd8c23fd10b9ddfff9af7cddc6f76e0afb453ebb65",
+  "container_short": "f5d3b989aacf",
+  "tool_version": "quay.io/cilium/tetragon:v1.6.0",
+  "policies": [
+    "ebpf-lab-process-exec (sched_process_exec)",
+    "ebpf-lab-file-access (sys_openat pathname)"
+  ],
+  "scoped_event_count": 19,
+  "event_counts": {
+    "process_exec": 3,
+    "sched_process_exec": 3,
+    "openat_kprobe": 11,
+    "process_exit": 2
+  },
+  "processes_observed": [
+    "sh",
+    "wget",
+    "ssl_client"
+  ],
+  "openat_paths": [
+    "/dev/null",
+    "/etc/hosts",
+    "/etc/ld-musl-aarch64.path",
+    "/etc/resolv.conf",
+    "/etc/ssl/cert.pem",
+    "/etc/ssl/certs",
+    "/etc/ssl/openssl.cnf",
+    "/lib/libcrypto.so.3",
+    "/lib/libssl.so.3"
+  ],
+  "evidence_events": "results/raw/tetragon_events/E03.jsonl"
+}

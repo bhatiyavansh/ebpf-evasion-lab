@@ -1,0 +1,100 @@
+{
+  "run_id": "run-A2_falco_t1-falco-20261014132218",
+  "run_label": "A2_falco_t1",
+  "tool": "falco",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-14T07:52:18Z",
+  "ended_at": "2026-10-14T07:52:32Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c sh -c \"id; uname -a\"",
+  "container_id": "c096a31829b337b888ac929273cfc9674f39f9831eaba8a699cf3f4e5fdbbaa4",
+  "container_short": "c096a31829b3",
+  "tool_version": "falcosecurity/falco:0.45.0",
+  "driver": "modern_ebpf",
+  "total_alerts": 4,
+  "qualifying_detections": [],
+  "custom_rule_notices": [
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T07:52:28.207808217+0000: Notice EBPF_LAB process execution container=lab-workload-A2_falco_t1-falco image=alpine:3.20 process=sh command=sh -c sh -c \"id; uname -a\" container_id=c096a31829b3 container_name=lab-workload-A2_falco_t1-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "c096a31829b3",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A2_falco_t1-falco",
+        "evt.time.iso8601": 1791964348207808217,
+        "proc.cmdline": "sh -c sh -c \"id; uname -a\"",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T07:52:28.217398135+0000: Notice EBPF_LAB process execution container=lab-workload-A2_falco_t1-falco image=alpine:3.20 process=sh command=sh -c id; uname -a container_id=c096a31829b3 container_name=lab-workload-A2_falco_t1-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "c096a31829b3",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A2_falco_t1-falco",
+        "evt.time.iso8601": 1791964348217398135,
+        "proc.cmdline": "sh -c id; uname -a",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T07:52:28.229427188+0000: Notice EBPF_LAB process execution container=lab-workload-A2_falco_t1-falco image=alpine:3.20 process=id command=id container_id=c096a31829b3 container_name=lab-workload-A2_falco_t1-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "c096a31829b3",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A2_falco_t1-falco",
+        "evt.time.iso8601": 1791964348229427188,
+        "proc.cmdline": "id",
+        "proc.name": "id"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T07:52:28.244585805+0000: Notice EBPF_LAB process execution container=lab-workload-A2_falco_t1-falco image=alpine:3.20 process=uname command=uname -a container_id=c096a31829b3 container_name=lab-workload-A2_falco_t1-falco container_image_repository=alpine container_image_tag=3.20 k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "c096a31829b3",
+        "container.image.repository": "alpine",
+        "container.image.tag": "3.20",
+        "container.name": "lab-workload-A2_falco_t1-falco",
+        "evt.time.iso8601": 1791964348244585805,
+        "proc.cmdline": "uname -a",
+        "proc.name": "uname"
+      }
+    }
+  ],
+  "evidence_events": "results/raw/falco_events/A2_falco_t1.jsonl"
+}

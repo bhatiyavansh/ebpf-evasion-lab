@@ -1,0 +1,38 @@
+{
+  "run_id": "run-A3_tetB_t1-20261014132922",
+  "run_label": "A3_tetB_t1",
+  "tool": "tetragon",
+  "provenance": "live",
+  "started_at": "2026-10-14T07:59:22Z",
+  "ended_at": "2026-10-14T07:59:28Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c id; uname -a; cat /etc/os-release >/dev/null; hostname",
+  "container_id": "b721db5025df017033ea2b9946deb4a35f7b9c6ef7566b2e05a96e4ed30a0b9a",
+  "container_short": "b721db5025df",
+  "tool_version": "quay.io/cilium/tetragon:v1.6.0",
+  "policies": [
+    "ebpf-lab-process-exec (sched_process_exec)",
+    "ebpf-lab-file-access (sys_openat pathname)"
+  ],
+  "scoped_event_count": 30,
+  "event_counts": {
+    "process_exec": 5,
+    "sched_process_exec": 5,
+    "openat_kprobe": 16,
+    "process_exit": 4
+  },
+  "processes_observed": [
+    "sh",
+    "id",
+    "uname",
+    "cat",
+    "hostname"
+  ],
+  "openat_paths": [
+    "/dev/null",
+    "/etc/group",
+    "/etc/os-release",
+    "/etc/passwd"
+  ],
+  "evidence_events": "results/raw/tetragon_events/A3_tetB_t1.jsonl"
+}

@@ -1,0 +1,33 @@
+{
+  "run_id": "run-A1_tracee_t1-tracee-20261014131848",
+  "run_label": "A1_tracee_t1",
+  "tool": "tracee",
+  "mode": "baseline",
+  "provenance": "live",
+  "started_at": "2026-10-14T07:48:48Z",
+  "ended_at": "2026-10-14T07:49:41Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c cat /etc/shadow >/dev/null",
+  "container_id": "3bbc67c18fc274c7db157f410b40a4f46ebc94507ed9092aaa3b4667a4377151",
+  "container_short": "3bbc67c18fc2",
+  "tool_version": "aquasec/tracee:latest",
+  "events_configured": "execve,openat,security_file_open,security_socket_connect",
+  "scoped_event_count": 10,
+  "event_counts": {
+    "security_file_open": 7,
+    "openat": 2,
+    "execve": 1
+  },
+  "processes_observed": [
+    "cat"
+  ],
+  "openat_paths": [
+    "/bin/busybox",
+    "/dev/null",
+    "/etc/shadow",
+    "/lib/ld-musl-aarch64.so.1"
+  ],
+  "connects": [],
+  "matched_policies": [],
+  "evidence_events": "results/raw/tracee_events/A1_tracee_t1.jsonl"
+}

@@ -1,0 +1,38 @@
+{
+  "run_id": "run-A3_tracee_t3-tracee-20261014132826",
+  "run_label": "A3_tracee_t3",
+  "tool": "tracee",
+  "mode": "baseline",
+  "provenance": "live",
+  "started_at": "2026-10-14T07:58:26Z",
+  "ended_at": "2026-10-14T07:59:18Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c id; uname -a; cat /etc/os-release >/dev/null; hostname",
+  "container_id": "3e4977b2cbac80028eae7f67691b8452141a8c57634e267a4cbf9f8f7c91ddfb",
+  "container_short": "3e4977b2cbac",
+  "tool_version": "aquasec/tracee:latest",
+  "events_configured": "execve,openat,security_file_open,security_socket_connect",
+  "scoped_event_count": 67,
+  "event_counts": {
+    "execve": 4,
+    "security_file_open": 47,
+    "openat": 16
+  },
+  "processes_observed": [
+    "id",
+    "uname",
+    "cat",
+    "hostname"
+  ],
+  "openat_paths": [
+    "/bin/busybox",
+    "/dev/null",
+    "/etc/group",
+    "/etc/os-release",
+    "/etc/passwd",
+    "/lib/ld-musl-aarch64.so.1"
+  ],
+  "connects": [],
+  "matched_policies": [],
+  "evidence_events": "results/raw/tracee_events/A3_tracee_t3.jsonl"
+}

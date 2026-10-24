@@ -1,0 +1,35 @@
+{
+  "run_id": "run-A2_tetB_t2-20261014132548",
+  "run_label": "A2_tetB_t2",
+  "tool": "tetragon",
+  "provenance": "live",
+  "started_at": "2026-10-14T07:55:48Z",
+  "ended_at": "2026-10-14T07:55:54Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c sh -c \"id; uname -a\"",
+  "container_id": "67ce7a3a69dd1b13a982f3da18a1fb842d30a12496dc9b75316418822c6df485",
+  "container_short": "67ce7a3a69dd",
+  "tool_version": "quay.io/cilium/tetragon:v1.6.0",
+  "policies": [
+    "ebpf-lab-process-exec (sched_process_exec)",
+    "ebpf-lab-file-access (sys_openat pathname)"
+  ],
+  "scoped_event_count": 24,
+  "event_counts": {
+    "process_exec": 4,
+    "sched_process_exec": 4,
+    "openat_kprobe": 14,
+    "process_exit": 2
+  },
+  "processes_observed": [
+    "sh",
+    "sh",
+    "id",
+    "uname"
+  ],
+  "openat_paths": [
+    "/etc/group",
+    "/etc/passwd"
+  ],
+  "evidence_events": "results/raw/tetragon_events/A2_tetB_t2.jsonl"
+}

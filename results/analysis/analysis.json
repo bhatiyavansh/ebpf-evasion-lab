@@ -1,0 +1,888 @@
+{
+  "generated_from": "results/normalized/results.json via scripts/analyze.py",
+  "matrix": [
+    {
+      "experiment_id": "E01",
+      "title": "Sensitive File Access",
+      "behavior": "sensitive_file_read",
+      "variant": "baseline",
+      "tools_in_scope": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "cells": {
+        "falco": {
+          "status": "confirmed_detection",
+          "detection_type": null,
+          "event_observed": true,
+          "context_enriched": false,
+          "rule_class": "builtin_security",
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "detected"
+          }
+        },
+        "tracee": {
+          "status": "telemetry_observed",
+          "detection_type": "openat_telemetry",
+          "event_observed": true,
+          "context_enriched": false,
+          "rule_class": null,
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        },
+        "tetragon": {
+          "status": "telemetry_observed",
+          "detection_type": "openat_telemetry + sched_process_exec_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "live",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        }
+      }
+    },
+    {
+      "experiment_id": "E02",
+      "title": "Process Execution",
+      "behavior": "process_execution",
+      "variant": "baseline",
+      "tools_in_scope": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "cells": {
+        "falco": {
+          "status": "confirmed_detection",
+          "detection_type": null,
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": "custom_research",
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "detected"
+          }
+        },
+        "tracee": {
+          "status": "telemetry_observed",
+          "detection_type": "execve_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        },
+        "tetragon": {
+          "status": "telemetry_observed",
+          "detection_type": "sched_process_exec_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "live",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        }
+      }
+    },
+    {
+      "experiment_id": "E03",
+      "title": "Network Activity",
+      "behavior": "network_activity",
+      "variant": "baseline",
+      "tools_in_scope": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "cells": {
+        "falco": {
+          "status": "partial",
+          "detection_type": "process_execution",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": "custom_research",
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        },
+        "tracee": {
+          "status": "telemetry_observed",
+          "detection_type": "connect_telemetry",
+          "event_observed": true,
+          "context_enriched": false,
+          "rule_class": null,
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        },
+        "tetragon": {
+          "status": "telemetry_observed",
+          "detection_type": "sched_process_exec_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "live",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        }
+      }
+    },
+    {
+      "experiment_id": "E04",
+      "title": "Indirect Execution",
+      "behavior": "process_execution",
+      "variant": "indirect_execution",
+      "tools_in_scope": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "cells": {
+        "falco": {
+          "status": "confirmed_detection",
+          "detection_type": null,
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": "custom_research",
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "detected"
+          }
+        },
+        "tracee": {
+          "status": "telemetry_observed",
+          "detection_type": "execve_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        },
+        "tetragon": {
+          "status": "collection_failed",
+          "detection_type": "sched_process_exec_telemetry",
+          "event_observed": false,
+          "context_enriched": false,
+          "rule_class": null,
+          "provenance": "live",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "failed",
+            "telemetry": "not_observed",
+            "detection": "not_evaluated"
+          }
+        }
+      }
+    },
+    {
+      "experiment_id": "E05",
+      "title": "Timing Variation",
+      "behavior": "process_execution",
+      "variant": "timing_variation",
+      "tools_in_scope": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "cells": {
+        "falco": {
+          "status": "confirmed_detection",
+          "detection_type": null,
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": "custom_research",
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "detected"
+          }
+        },
+        "tracee": {
+          "status": "telemetry_observed",
+          "detection_type": "execve_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "recorded",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        },
+        "tetragon": {
+          "status": "telemetry_observed",
+          "detection_type": "sched_process_exec_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "live",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        }
+      }
+    },
+    {
+      "experiment_id": "E06",
+      "title": "Repeated Baseline Consistency",
+      "behavior": "process_execution",
+      "variant": "repeatability",
+      "tools_in_scope": [
+        "tetragon"
+      ],
+      "cells": {
+        "falco": {
+          "status": "not_applicable"
+        },
+        "tracee": {
+          "status": "not_applicable"
+        },
+        "tetragon": {
+          "status": "telemetry_observed",
+          "detection_type": "sched_process_exec_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "live",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        }
+      }
+    },
+    {
+      "experiment_id": "E07",
+      "title": "Sensitive vs Benign File Access",
+      "behavior": "file_access",
+      "variant": "comparative",
+      "tools_in_scope": [
+        "tetragon"
+      ],
+      "cells": {
+        "falco": {
+          "status": "not_applicable"
+        },
+        "tracee": {
+          "status": "not_applicable"
+        },
+        "tetragon": {
+          "status": "telemetry_observed",
+          "detection_type": "openat_telemetry + sched_process_exec_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "live",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        }
+      }
+    },
+    {
+      "experiment_id": "E08",
+      "title": "Network Observability & Policy Coverage",
+      "behavior": "network_activity",
+      "variant": "policy_coverage",
+      "tools_in_scope": [
+        "tetragon"
+      ],
+      "cells": {
+        "falco": {
+          "status": "not_applicable"
+        },
+        "tracee": {
+          "status": "not_applicable"
+        },
+        "tetragon": {
+          "status": "telemetry_observed",
+          "detection_type": "sched_process_exec_telemetry",
+          "event_observed": true,
+          "context_enriched": true,
+          "rule_class": null,
+          "provenance": "live",
+          "dimensions": {
+            "execution": "completed",
+            "collection": "complete",
+            "telemetry": "observed",
+            "detection": "not_evaluated"
+          }
+        }
+      }
+    }
+  ],
+  "detection_vs_telemetry": {
+    "falco": {
+      "eligible_evaluations": 5,
+      "confirmed_detections": 4,
+      "telemetry_observed": 5,
+      "partial": 1,
+      "confirmed_miss": 0,
+      "detection_rate": 0.8,
+      "telemetry_rate": 1.0,
+      "has_alerting_engine": true
+    },
+    "tracee": {
+      "eligible_evaluations": 5,
+      "confirmed_detections": 0,
+      "telemetry_observed": 5,
+      "partial": 0,
+      "confirmed_miss": 0,
+      "detection_rate": 0.0,
+      "telemetry_rate": 1.0,
+      "has_alerting_engine": false
+    },
+    "tetragon": {
+      "eligible_evaluations": 8,
+      "confirmed_detections": 0,
+      "telemetry_observed": 7,
+      "partial": 0,
+      "confirmed_miss": 0,
+      "detection_rate": 0.0,
+      "telemetry_rate": 0.875,
+      "has_alerting_engine": false
+    }
+  },
+  "baseline_vs_adaptive": [
+    {
+      "adaptive_id": "E04",
+      "adaptive_title": "Indirect Execution",
+      "variant": "indirect_execution",
+      "baseline_id": "E02",
+      "tools": {
+        "falco": {
+          "baseline_status": "confirmed_detection",
+          "adaptive_status": "confirmed_detection",
+          "baseline_processes": [
+            "sh",
+            "id",
+            "uname"
+          ],
+          "adaptive_processes": [
+            "sh",
+            "sh",
+            "id"
+          ],
+          "observability_change": "unchanged"
+        },
+        "tracee": {
+          "baseline_status": "telemetry_observed",
+          "adaptive_status": "telemetry_observed",
+          "baseline_processes": [
+            "sh",
+            "id",
+            "uname"
+          ],
+          "adaptive_processes": [
+            "sh",
+            "sh",
+            "id"
+          ],
+          "observability_change": "unchanged"
+        },
+        "tetragon": {
+          "baseline_status": "telemetry_observed",
+          "adaptive_status": "collection_failed",
+          "baseline_processes": [
+            "sh",
+            "id",
+            "uname"
+          ],
+          "adaptive_processes": null,
+          "observability_change": "reduced"
+        }
+      }
+    },
+    {
+      "adaptive_id": "E05",
+      "adaptive_title": "Timing Variation",
+      "variant": "timing_variation",
+      "baseline_id": "E02",
+      "tools": {
+        "falco": {
+          "baseline_status": "confirmed_detection",
+          "adaptive_status": "confirmed_detection",
+          "baseline_processes": [
+            "sh",
+            "id",
+            "uname"
+          ],
+          "adaptive_processes": [
+            "sh",
+            "sleep",
+            "sleep",
+            "id"
+          ],
+          "observability_change": "unchanged"
+        },
+        "tracee": {
+          "baseline_status": "telemetry_observed",
+          "adaptive_status": "telemetry_observed",
+          "baseline_processes": [
+            "sh",
+            "id",
+            "uname"
+          ],
+          "adaptive_processes": [
+            "sh",
+            "sleep",
+            "sleep",
+            "id"
+          ],
+          "observability_change": "unchanged"
+        },
+        "tetragon": {
+          "baseline_status": "telemetry_observed",
+          "adaptive_status": "telemetry_observed",
+          "baseline_processes": [
+            "sh",
+            "id",
+            "uname"
+          ],
+          "adaptive_processes": [
+            "sh",
+            "sleep",
+            "sleep",
+            "id"
+          ],
+          "observability_change": "unchanged"
+        }
+      }
+    },
+    {
+      "adaptive_id": "E06",
+      "adaptive_title": "Repeated Baseline Consistency",
+      "variant": "repeatability",
+      "baseline_id": "E02",
+      "tools": {
+        "tetragon": {
+          "baseline_status": "telemetry_observed",
+          "adaptive_status": "telemetry_observed",
+          "baseline_processes": [
+            "sh",
+            "id",
+            "uname"
+          ],
+          "adaptive_processes": [
+            "sh",
+            "id"
+          ],
+          "observability_change": "unchanged"
+        }
+      }
+    }
+  ],
+  "data_completeness": {
+    "experiments_defined": 9,
+    "experiments_evaluated": 8,
+    "derived_experiments": 1,
+    "detectors": 3,
+    "grid_cells": 18,
+    "evaluated_cells": 18,
+    "not_tested_cells": 0,
+    "coverage_fraction": 1.0,
+    "cells_with_evidence_file": 18,
+    "cells_with_event_evidence": 7,
+    "live_cells": 8,
+    "recorded_cells": 10
+  },
+  "evidence_coverage": [
+    {
+      "experiment_id": "E01",
+      "tools_defined": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "tools_with_evidence": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "complete": true
+    },
+    {
+      "experiment_id": "E02",
+      "tools_defined": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "tools_with_evidence": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "complete": true
+    },
+    {
+      "experiment_id": "E03",
+      "tools_defined": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "tools_with_evidence": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "complete": true
+    },
+    {
+      "experiment_id": "E04",
+      "tools_defined": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "tools_with_evidence": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "complete": true
+    },
+    {
+      "experiment_id": "E05",
+      "tools_defined": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "tools_with_evidence": [
+        "falco",
+        "tracee",
+        "tetragon"
+      ],
+      "complete": true
+    },
+    {
+      "experiment_id": "E06",
+      "tools_defined": [
+        "tetragon"
+      ],
+      "tools_with_evidence": [
+        "tetragon"
+      ],
+      "complete": true
+    },
+    {
+      "experiment_id": "E07",
+      "tools_defined": [
+        "tetragon"
+      ],
+      "tools_with_evidence": [
+        "tetragon"
+      ],
+      "complete": true
+    },
+    {
+      "experiment_id": "E08",
+      "tools_defined": [
+        "tetragon"
+      ],
+      "tools_with_evidence": [
+        "tetragon"
+      ],
+      "complete": true
+    }
+  ],
+  "latency_summary": {
+    "measurements_available": 0,
+    "note": "No valid detection-latency measurements were recorded in this dataset. Latency is intentionally reported as unavailable rather than fabricated.",
+    "values_ms": null
+  },
+  "cross_tool_status_counts": {
+    "falco": {
+      "confirmed_detection": 4,
+      "partial": 1
+    },
+    "tracee": {
+      "telemetry_observed": 5
+    },
+    "tetragon": {
+      "telemetry_observed": 7,
+      "collection_failed": 1
+    }
+  },
+  "e06_repeatability": {
+    "trial_count": 5,
+    "distinct_process_chains": 1,
+    "distinct_exec_counts": [
+      2
+    ],
+    "repeatable": true,
+    "trials": [
+      {
+        "trial": 1,
+        "run_id": "run-E06_t1-20261014122705",
+        "started_at": "2026-10-14T06:57:05Z",
+        "processes_observed": [
+          "sh",
+          "id"
+        ],
+        "process_exec_count": 2,
+        "scoped_event_count": 19,
+        "evidence_events": "results/raw/tetragon_events/E06_t1.jsonl"
+      },
+      {
+        "trial": 2,
+        "run_id": "run-E06_t2-20261014122716",
+        "started_at": "2026-10-14T06:57:16Z",
+        "processes_observed": [
+          "sh",
+          "id"
+        ],
+        "process_exec_count": 2,
+        "scoped_event_count": 19,
+        "evidence_events": "results/raw/tetragon_events/E06_t2.jsonl"
+      },
+      {
+        "trial": 3,
+        "run_id": "run-E06_t3-20261014122722",
+        "started_at": "2026-10-14T06:57:22Z",
+        "processes_observed": [
+          "sh",
+          "id"
+        ],
+        "process_exec_count": 2,
+        "scoped_event_count": 19,
+        "evidence_events": "results/raw/tetragon_events/E06_t3.jsonl"
+      },
+      {
+        "trial": 4,
+        "run_id": "run-E06_t4-20261014122728",
+        "started_at": "2026-10-14T06:57:28Z",
+        "processes_observed": [
+          "sh",
+          "id"
+        ],
+        "process_exec_count": 2,
+        "scoped_event_count": 19,
+        "evidence_events": "results/raw/tetragon_events/E06_t4.jsonl"
+      },
+      {
+        "trial": 5,
+        "run_id": "run-E06_t5-20261014122734",
+        "started_at": "2026-10-14T06:57:34Z",
+        "processes_observed": [
+          "sh",
+          "id"
+        ],
+        "process_exec_count": 2,
+        "scoped_event_count": 19,
+        "evidence_events": "results/raw/tetragon_events/E06_t5.jsonl"
+      }
+    ],
+    "caveat": "Small-n exploratory evidence; descriptive only, no statistical significance."
+  },
+  "e07_sensitive_vs_benign": {
+    "sensitive": {
+      "path": "/etc/shadow",
+      "run_id": "run-E07_sensitive-20261014122741",
+      "openat_paths": [
+        "/dev/null",
+        "/etc/shadow"
+      ],
+      "target_observed_in_openat": true,
+      "evidence_events": "results/raw/tetragon_events/E07_sensitive.jsonl"
+    },
+    "benign": {
+      "path": "/etc/alpine-release",
+      "run_id": "run-E07_benign-20261014122747",
+      "openat_paths": [
+        "/dev/null",
+        "/etc/alpine-release"
+      ],
+      "target_observed_in_openat": true,
+      "evidence_events": "results/raw/tetragon_events/E07_benign.jsonl"
+    }
+  },
+  "e08_network_coverage": {
+    "tetragon": {
+      "process_telemetry": [
+        "sh",
+        "wget",
+        "ssl_client"
+      ],
+      "network_detection_status": "not_evaluated",
+      "policy": {
+        "tetragon_network_policy_configured": false,
+        "explanation": "This lab's Tetragon configuration has process-exec and openat tracing policies but NO network/connect tracing policy. Socket-level connection visibility is therefore not configured, and network-specific detection is NOT EVALUATED for Tetragon \u2014 not failed.",
+        "cross_tool_note": "Tracee (E03) captured the connect to port 443 (network telemetry observed). Falco's fired rule in E03 was process-exec, not network, so Falco's network detection is also NOT EVALUATED in this lab configuration."
+      }
+    },
+    "tracee_reference_E03": {
+      "network_telemetry": true,
+      "note": "Tracee (E03) captured the connect to :443 \u2014 network telemetry observed."
+    },
+    "falco_reference_E03": {
+      "network_detection_status": "not_evaluated",
+      "note": "Falco's E03 alert was process-exec; no network rule verified."
+    }
+  },
+  "e09_sequence_timing": {
+    "rows": [
+      {
+        "experiment_id": "E02",
+        "variant": "baseline",
+        "per_tool": {
+          "falco": {
+            "processes": [
+              "sh",
+              "id",
+              "uname"
+            ],
+            "status": "confirmed_detection",
+            "event_observed": true
+          },
+          "tracee": {
+            "processes": [
+              "sh",
+              "id",
+              "uname"
+            ],
+            "status": "telemetry_observed",
+            "event_observed": true
+          },
+          "tetragon": {
+            "processes": [
+              "sh",
+              "id",
+              "uname"
+            ],
+            "status": "telemetry_observed",
+            "event_observed": true
+          }
+        }
+      },
+      {
+        "experiment_id": "E04",
+        "variant": "indirect_execution",
+        "per_tool": {
+          "falco": {
+            "processes": [
+              "sh",
+              "sh",
+              "id"
+            ],
+            "status": "confirmed_detection",
+            "event_observed": true
+          },
+          "tracee": {
+            "processes": [
+              "sh",
+              "sh",
+              "id"
+            ],
+            "status": "telemetry_observed",
+            "event_observed": true
+          },
+          "tetragon": {
+            "processes": null,
+            "status": "collection_failed",
+            "event_observed": false
+          }
+        }
+      },
+      {
+        "experiment_id": "E05",
+        "variant": "timing_variation",
+        "per_tool": {
+          "falco": {
+            "processes": [
+              "sh",
+              "sleep",
+              "sleep",
+              "id"
+            ],
+            "status": "confirmed_detection",
+            "event_observed": true
+          },
+          "tracee": {
+            "processes": [
+              "sh",
+              "sleep",
+              "sleep",
+              "id"
+            ],
+            "status": "telemetry_observed",
+            "event_observed": true
+          },
+          "tetragon": {
+            "processes": [
+              "sh",
+              "sleep",
+              "sleep",
+              "id"
+            ],
+            "status": "telemetry_observed",
+            "event_observed": true
+          }
+        }
+      }
+    ],
+    "observation": "Process chain changes across variants (sh,id -> sh,sh,id -> sh,sleep,sleep,id) while every stage remained observable in all tools.",
+    "limitation": "Describes observability across controlled variants. Does NOT establish evasion: no stage disappeared from any tool's capture."
+  }
+}

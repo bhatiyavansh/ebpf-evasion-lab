@@ -1,0 +1,35 @@
+{
+  "run_id": "run-A6_tracee_t3-tracee-20261016122224",
+  "run_label": "A6_tracee_t3",
+  "tool": "tracee",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-16T06:52:24Z",
+  "ended_at": "2026-10-16T06:53:14Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c mkdir -p /etc/sudoers.d; echo '# lab' >> /etc/sudoers.d/labtest",
+  "container_id": "ea800f3949f2d089563c858b23b028023079fb0492ee199d7e3a1c5f16ab0fc1",
+  "container_short": "ea800f3949f2",
+  "tool_version": "aquasec/tracee:latest",
+  "events_configured": "sudoers_modification,execve,security_file_open",
+  "scoped_event_count": 9,
+  "event_counts": {
+    "execve": 1,
+    "security_file_open": 6,
+    "sudoers_modification": 2
+  },
+  "processes_observed": [
+    "mkdir"
+  ],
+  "openat_paths": [
+    "/bin/busybox",
+    "/etc/sudoers.d/labtest",
+    "/lib/ld-musl-aarch64.so.1"
+  ],
+  "connects": [],
+  "matched_policies": [],
+  "signature_detections": {
+    "sudoers_modification": 2
+  },
+  "evidence_events": "results/raw/tracee_events/A6_tracee_t3.jsonl"
+}

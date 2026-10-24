@@ -1,0 +1,54 @@
+{
+  "run_id": "run-A6_falco_t3-falco-20261016122212",
+  "run_label": "A6_falco_t3",
+  "tool": "falco",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-16T06:52:12Z",
+  "ended_at": "2026-10-16T06:52:23Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c mkdir -p /etc/sudoers.d; echo '# lab' >> /etc/sudoers.d/labtest",
+  "container_id": "0ee509088b0098f6fd0c797471deb03f4f507ab9ca15e9612a0842c13279c0f8",
+  "container_short": "0ee509088b00",
+  "tool_version": "falcosecurity/falco:0.45.0",
+  "driver": "modern_ebpf",
+  "total_alerts": 2,
+  "qualifying_detections": [],
+  "custom_rule_notices": [
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-16T06:52:19.635985308+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=sh command=sh -c mkdir -p /etc/sudoers.d; echo '# lab' >> /etc/sudoers.d/labtest container_id=0ee509088b00 container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "0ee509088b00",
+        "evt.time.iso8601": 1792133539635985308,
+        "proc.cmdline": "sh -c mkdir -p /etc/sudoers.d; echo '# lab' >> /etc/sudoers.d/labtest",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-16T06:52:19.638745187+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=mkdir command=mkdir -p /etc/sudoers.d container_id=0ee509088b00 container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "0ee509088b00",
+        "evt.time.iso8601": 1792133539638745187,
+        "proc.cmdline": "mkdir -p /etc/sudoers.d",
+        "proc.name": "mkdir"
+      }
+    }
+  ],
+  "evidence_events": "results/raw/falco_events/A6_falco_t3.jsonl"
+}

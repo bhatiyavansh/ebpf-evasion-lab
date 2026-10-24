@@ -1,0 +1,22 @@
+apiVersion: cilium.io/v1alpha1
+kind: TracingPolicy
+metadata:
+  name: ebpf-lab-sensitive-file-detect
+spec:
+  kprobes:
+    - call: "sys_openat"
+      syscall: true
+      args:
+        - index: 1
+          type: string
+      selectors:
+        # Selective detection: this policy emits an event ONLY when the opened
+        # pathname matches a sensitive target. A match is therefore a
+        # policy-based detection of sensitive-file access, not generic telemetry.
+        - matchArgs:
+            - index: 1
+              operator: "Equal"
+              values:
+                - "/etc/shadow"
+                - "/etc/sudoers"
+                - "/etc/ssh/ssh_host_rsa_key"

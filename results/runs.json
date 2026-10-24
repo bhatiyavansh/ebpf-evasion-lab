@@ -1,0 +1,276 @@
+{
+  "runs": [
+    {
+      "run_id": "run-E01-20261014122930",
+      "experiment_id": "E01",
+      "tool": "tetragon",
+      "provenance": "live",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T06:59:30Z",
+      "ended_at": "2026-10-14T06:59:35Z",
+      "evidence_raw": "results/raw/E01_tetragon.json",
+      "evidence_events": "results/raw/tetragon_events/E01.jsonl",
+      "processes_observed": [
+        "sh",
+        "cat"
+      ]
+    },
+    {
+      "run_id": "run-E02-20261014171357",
+      "experiment_id": "E02",
+      "tool": "tetragon",
+      "provenance": "live",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T11:43:57Z",
+      "ended_at": "2026-10-14T11:44:03Z",
+      "evidence_raw": "results/raw/E02_tetragon.json",
+      "evidence_events": "results/raw/tetragon_events/E02.jsonl",
+      "processes_observed": [
+        "sh",
+        "id",
+        "uname"
+      ]
+    },
+    {
+      "run_id": "run-E03-20261014122942",
+      "experiment_id": "E03",
+      "tool": "tetragon",
+      "provenance": "live",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T06:59:42Z",
+      "ended_at": "2026-10-14T06:59:48Z",
+      "evidence_raw": "results/raw/E03_tetragon.json",
+      "evidence_events": "results/raw/tetragon_events/E03.jsonl",
+      "processes_observed": [
+        "sh",
+        "wget",
+        "ssl_client"
+      ]
+    },
+    {
+      "run_id": "run-E04-20261016122414",
+      "experiment_id": "E04",
+      "tool": "tetragon",
+      "provenance": "live",
+      "status": "collection_failed",
+      "started_at": "2026-10-16T06:54:14Z",
+      "ended_at": "2026-10-16T06:54:19Z",
+      "evidence_raw": "results/raw/E04_tetragon.json",
+      "evidence_events": "results/raw/tetragon_events/E04.jsonl",
+      "processes_observed": null
+    },
+    {
+      "run_id": "run-E05-20261014122956",
+      "experiment_id": "E05",
+      "tool": "tetragon",
+      "provenance": "live",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T06:59:56Z",
+      "ended_at": "2026-10-14T07:00:06Z",
+      "evidence_raw": "results/raw/E05_tetragon.json",
+      "evidence_events": "results/raw/tetragon_events/E05.jsonl",
+      "processes_observed": [
+        "sh",
+        "sleep",
+        "sleep",
+        "id"
+      ]
+    },
+    {
+      "run_id": "run-E06_t1-20261014122705",
+      "experiment_id": "E06",
+      "tool": "tetragon",
+      "provenance": "live",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T06:57:05Z",
+      "ended_at": "2026-10-14T06:57:41Z",
+      "evidence_raw": "results/raw/E06_tetragon.json",
+      "evidence_events": null,
+      "processes_observed": [
+        "sh",
+        "id"
+      ]
+    },
+    {
+      "run_id": "run-E07_sensitive-20261014122741",
+      "experiment_id": "E07",
+      "tool": "tetragon",
+      "provenance": "live",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T06:57:41Z",
+      "ended_at": "2026-10-14T06:57:55Z",
+      "evidence_raw": "results/raw/E07_tetragon.json",
+      "evidence_events": "results/raw/tetragon_events/E07_sensitive.jsonl",
+      "processes_observed": [
+        "sh",
+        "cat"
+      ]
+    },
+    {
+      "run_id": "run-E08-20261014122755",
+      "experiment_id": "E08",
+      "tool": "tetragon",
+      "provenance": "live",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T06:57:55Z",
+      "ended_at": "2026-10-14T06:58:01Z",
+      "evidence_raw": "results/raw/E08_tetragon.json",
+      "evidence_events": "results/raw/tetragon_events/E08.jsonl",
+      "processes_observed": [
+        "sh",
+        "wget",
+        "ssl_client"
+      ]
+    },
+    {
+      "run_id": "rec-E01-falco",
+      "experiment_id": "E01",
+      "tool": "falco",
+      "provenance": "recorded",
+      "status": "confirmed_detection",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E01_falco.json",
+      "evidence_events": null,
+      "processes_observed": null
+    },
+    {
+      "run_id": "rec-E01-tracee",
+      "experiment_id": "E01",
+      "tool": "tracee",
+      "provenance": "recorded",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E01_tracee.json",
+      "evidence_events": null,
+      "processes_observed": null
+    },
+    {
+      "run_id": "rec-E02-falco",
+      "experiment_id": "E02",
+      "tool": "falco",
+      "provenance": "recorded",
+      "status": "confirmed_detection",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E02_falco.json",
+      "evidence_events": null,
+      "processes_observed": [
+        "sh",
+        "id",
+        "uname"
+      ]
+    },
+    {
+      "run_id": "rec-E02-tracee",
+      "experiment_id": "E02",
+      "tool": "tracee",
+      "provenance": "recorded",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E02_tracee.json",
+      "evidence_events": null,
+      "processes_observed": [
+        "sh",
+        "id",
+        "uname"
+      ]
+    },
+    {
+      "run_id": "rec-E03-falco",
+      "experiment_id": "E03",
+      "tool": "falco",
+      "provenance": "recorded",
+      "status": "partial",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E03_falco.json",
+      "evidence_events": null,
+      "processes_observed": [
+        "sh",
+        "wget",
+        "ssl_client"
+      ]
+    },
+    {
+      "run_id": "rec-E03-tracee",
+      "experiment_id": "E03",
+      "tool": "tracee",
+      "provenance": "recorded",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E03_tracee.json",
+      "evidence_events": null,
+      "processes_observed": null
+    },
+    {
+      "run_id": "rec-E04-falco",
+      "experiment_id": "E04",
+      "tool": "falco",
+      "provenance": "recorded",
+      "status": "confirmed_detection",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E04_falco.json",
+      "evidence_events": null,
+      "processes_observed": [
+        "sh",
+        "sh",
+        "id"
+      ]
+    },
+    {
+      "run_id": "rec-E04-tracee",
+      "experiment_id": "E04",
+      "tool": "tracee",
+      "provenance": "recorded",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E04_tracee.json",
+      "evidence_events": null,
+      "processes_observed": [
+        "sh",
+        "sh",
+        "id"
+      ]
+    },
+    {
+      "run_id": "rec-E05-falco",
+      "experiment_id": "E05",
+      "tool": "falco",
+      "provenance": "recorded",
+      "status": "confirmed_detection",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E05_falco.json",
+      "evidence_events": null,
+      "processes_observed": [
+        "sh",
+        "sleep",
+        "sleep",
+        "id"
+      ]
+    },
+    {
+      "run_id": "rec-E05-tracee",
+      "experiment_id": "E05",
+      "tool": "tracee",
+      "provenance": "recorded",
+      "status": "telemetry_observed",
+      "started_at": "2026-10-14T11:36:21+05:30",
+      "ended_at": "2026-10-14T11:36:21+05:30",
+      "evidence_raw": "results/raw/E05_tracee.json",
+      "evidence_events": null,
+      "processes_observed": [
+        "sh",
+        "sleep",
+        "sleep",
+        "id"
+      ]
+    }
+  ]
+}

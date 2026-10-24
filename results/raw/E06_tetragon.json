@@ -1,0 +1,85 @@
+{
+  "experiment_id": "E06",
+  "tool": "tetragon",
+  "behavior": "process_execution",
+  "variant": "repeatability",
+  "detected": false,
+  "event_observed": true,
+  "containerized": true,
+  "image": "alpine:3.20",
+  "detection_type": "sched_process_exec_telemetry",
+  "alert_count": 0,
+  "processes_detected": [
+    "sh",
+    "id"
+  ],
+  "trials": [
+    {
+      "trial": 1,
+      "run_id": "run-E06_t1-20261014122705",
+      "started_at": "2026-10-14T06:57:05Z",
+      "processes_observed": [
+        "sh",
+        "id"
+      ],
+      "process_exec_count": 2,
+      "scoped_event_count": 19,
+      "evidence_events": "results/raw/tetragon_events/E06_t1.jsonl"
+    },
+    {
+      "trial": 2,
+      "run_id": "run-E06_t2-20261014122716",
+      "started_at": "2026-10-14T06:57:16Z",
+      "processes_observed": [
+        "sh",
+        "id"
+      ],
+      "process_exec_count": 2,
+      "scoped_event_count": 19,
+      "evidence_events": "results/raw/tetragon_events/E06_t2.jsonl"
+    },
+    {
+      "trial": 3,
+      "run_id": "run-E06_t3-20261014122722",
+      "started_at": "2026-10-14T06:57:22Z",
+      "processes_observed": [
+        "sh",
+        "id"
+      ],
+      "process_exec_count": 2,
+      "scoped_event_count": 19,
+      "evidence_events": "results/raw/tetragon_events/E06_t3.jsonl"
+    },
+    {
+      "trial": 4,
+      "run_id": "run-E06_t4-20261014122728",
+      "started_at": "2026-10-14T06:57:28Z",
+      "processes_observed": [
+        "sh",
+        "id"
+      ],
+      "process_exec_count": 2,
+      "scoped_event_count": 19,
+      "evidence_events": "results/raw/tetragon_events/E06_t4.jsonl"
+    },
+    {
+      "trial": 5,
+      "run_id": "run-E06_t5-20261014122734",
+      "started_at": "2026-10-14T06:57:34Z",
+      "processes_observed": [
+        "sh",
+        "id"
+      ],
+      "process_exec_count": 2,
+      "scoped_event_count": 19,
+      "evidence_events": "results/raw/tetragon_events/E06_t5.jsonl"
+    }
+  ],
+  "trial_count": 5,
+  "distinct_process_chains": 1,
+  "distinct_exec_counts": [
+    2
+  ],
+  "repeatable": true,
+  "notes": "5 deterministic trials of the benign baseline workload. All 5 trials produced the identical process-execution chain ['sh', 'id'] with [2] exec event(s). This is exploratory repeatability evidence (small n), described rather than aggregated into a statistical claim. Telemetry observed, not a security detection."
+}

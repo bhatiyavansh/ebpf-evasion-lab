@@ -1,0 +1,105 @@
+{
+  "run_id": "run-A3_falco_t7-falco-20261015001706",
+  "run_label": "A3_falco_t7",
+  "tool": "falco",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-14T18:47:06Z",
+  "ended_at": "2026-10-14T18:47:18Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c id; uname -a; cat /etc/os-release >/dev/null; hostname",
+  "container_id": "8cf7ba67020db7bea7a6b9e1378d58c369947807b42f6921407865b2ec867121",
+  "container_short": "8cf7ba67020d",
+  "tool_version": "falcosecurity/falco:0.45.0",
+  "driver": "modern_ebpf",
+  "total_alerts": 5,
+  "qualifying_detections": [],
+  "custom_rule_notices": [
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:47:14.597661442+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=sh command=sh -c id; uname -a; cat /etc/os-release >/dev/null; hostname container_id=8cf7ba67020d container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "8cf7ba67020d",
+        "evt.time.iso8601": 1792003634597661442,
+        "proc.cmdline": "sh -c id; uname -a; cat /etc/os-release >/dev/null; hostname",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:47:14.600304304+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=id command=id container_id=8cf7ba67020d container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "8cf7ba67020d",
+        "evt.time.iso8601": 1792003634600304304,
+        "proc.cmdline": "id",
+        "proc.name": "id"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:47:14.601352828+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=uname command=uname -a container_id=8cf7ba67020d container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "8cf7ba67020d",
+        "evt.time.iso8601": 1792003634601352828,
+        "proc.cmdline": "uname -a",
+        "proc.name": "uname"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:47:14.602248609+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=cat command=cat /etc/os-release container_id=8cf7ba67020d container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "8cf7ba67020d",
+        "evt.time.iso8601": 1792003634602248609,
+        "proc.cmdline": "cat /etc/os-release",
+        "proc.name": "cat"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:47:14.602852286+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=hostname command=hostname container_id=8cf7ba67020d container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "8cf7ba67020d",
+        "evt.time.iso8601": 1792003634602852286,
+        "proc.cmdline": "hostname",
+        "proc.name": "hostname"
+      }
+    }
+  ],
+  "evidence_events": "results/raw/falco_events/A3_falco_t7.jsonl"
+}

@@ -1,0 +1,87 @@
+{
+  "run_id": "run-A1_falco_t7-falco-20261015000218",
+  "run_label": "A1_falco_t7",
+  "tool": "falco",
+  "mode": "configured",
+  "provenance": "live",
+  "started_at": "2026-10-14T18:32:18Z",
+  "ended_at": "2026-10-14T18:32:32Z",
+  "workload_image": "alpine:3.20",
+  "workload_cmd": "sh -c cat /etc/shadow >/dev/null",
+  "container_id": "cae44429fee16cac3fa1884390eb89e223a087a1ff8e9f2de67d30db666751e9",
+  "container_short": "cae44429fee1",
+  "tool_version": "falcosecurity/falco:0.45.0",
+  "driver": "modern_ebpf",
+  "total_alerts": 3,
+  "qualifying_detections": [
+    {
+      "rule": "Read sensitive file untrusted",
+      "priority": "Warning",
+      "tags": [
+        "T1555",
+        "container",
+        "filesystem",
+        "host",
+        "maturity_stable",
+        "mitre_credential_access"
+      ],
+      "mitre": [
+        "T1555",
+        "mitre_credential_access"
+      ],
+      "output": "2026-10-14T18:32:28.439120634+0000: Warning Sensitive file opened for reading by non-trusted program | file=/etc/shadow gparent=systemd ggparent=<NA> gggparent=<NA> evt_type=openat user=root user_uid=0 user_loginuid=-1 process=cat proc_exepath=/bin/busybox parent=containerd-shim command=cat /etc/shadow terminal=0 container_id=cae44429fee1 container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "cae44429fee1",
+        "evt.time.iso8601": 1792002748439120634,
+        "evt.type": "openat",
+        "fd.name": "/etc/shadow",
+        "proc.aname[2]": "systemd",
+        "proc.cmdline": "cat /etc/shadow",
+        "proc.exepath": "/bin/busybox",
+        "proc.name": "cat",
+        "proc.pname": "containerd-shim",
+        "proc.tty": 0,
+        "user.loginuid": -1,
+        "user.name": "root",
+        "user.uid": 0
+      }
+    }
+  ],
+  "custom_rule_notices": [
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:32:28.433938502+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=sh command=sh -c cat /etc/shadow >/dev/null container_id=cae44429fee1 container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "cae44429fee1",
+        "evt.time.iso8601": 1792002748433938502,
+        "proc.cmdline": "sh -c cat /etc/shadow >/dev/null",
+        "proc.name": "sh"
+      }
+    },
+    {
+      "rule": "EBPF Lab Container Process Execution",
+      "priority": "Notice",
+      "tags": [
+        "baseline",
+        "ebpf-lab",
+        "process-execution"
+      ],
+      "mitre": [],
+      "output": "2026-10-14T18:32:28.438851374+0000: Notice EBPF_LAB process execution container=<NA> image=<NA>:<NA> process=cat command=cat /etc/shadow container_id=cae44429fee1 container_name=<NA> container_image_repository=<NA> container_image_tag=<NA> k8s_pod_name=<NA> k8s_ns_name=<NA>",
+      "fields": {
+        "container.id": "cae44429fee1",
+        "evt.time.iso8601": 1792002748438851374,
+        "proc.cmdline": "cat /etc/shadow",
+        "proc.name": "cat"
+      }
+    }
+  ],
+  "evidence_events": "results/raw/falco_events/A1_falco_t7.jsonl"
+}

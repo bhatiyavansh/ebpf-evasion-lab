@@ -3,11 +3,34 @@
   "tool": "tetragon",
   "behavior": "sensitive_file_read",
   "variant": "baseline",
+  "collection_status": "complete",
+  "collection_note": null,
+  "workload_exit_code": null,
+  "sensor_health": null,
   "detected": false,
   "event_observed": true,
   "containerized": true,
   "image": "alpine:3.20",
-  "detection_type": "sched_process_exec_telemetry",
+  "processes_detected": [
+    "sh",
+    "cat"
+  ],
   "alert_count": 0,
-  "notes": "Tetragon observed execution of /bin/cat /etc/shadow inside the controlled container through sched_process_exec telemetry. The current tracing policy does not trace the underlying file-open operation, so sensitive-file access detection itself is not established."
+  "evidence_events": "results/raw/tetragon_events/E01.jsonl",
+  "event_counts": {
+    "sched_process_exec": 2,
+    "process_exec": 2,
+    "openat_kprobe": 2
+  },
+  "container_cgroup_ids": [
+    "14a2c4f56619"
+  ],
+  "detection_type": "openat_telemetry + sched_process_exec_telemetry",
+  "target_path": "/etc/shadow",
+  "target_path_observed_in_openat": true,
+  "openat_paths_sample": [
+    "/dev/null",
+    "/etc/shadow"
+  ],
+  "notes": "Tetragon captured the sched_process_exec telemetry for /bin/cat and, under the ebpf-lab-file-access tracing policy, recorded a sys_openat event whose pathname argument is /etc/shadow. Pathname-specific visibility of the sensitive-file open is therefore established at the telemetry level. This is kernel/event visibility only: no alerting policy evaluated the open as a security detection, so this is telemetry observed, not a confirmed detection."
 }
