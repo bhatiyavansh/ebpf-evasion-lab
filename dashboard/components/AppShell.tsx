@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV = [
-  { href: "/", label: "Command Center" },
+  { href: "/", label: "← TraceWeaver" },
   { href: "/lab", label: "Experiment Lab" },
   { href: "/cve-lab", label: "CVE Lab" },
-  { href: "/outcome", label: "Outcome" },
+  { href: "/outcome", label: "Study Outcome" },
   { href: "/demo", label: "Demo" },
 ];
 
@@ -24,11 +24,12 @@ function LabMark() {
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isDemo = pathname === "/demo";
 
-  // The demo route is a focused presentation surface — render it without the
-  // app chrome so it is clean on a projector.
-  if (isDemo) return <>{children}</>;
+  // The TraceWeaver product (/) and the demo route each own their full chrome —
+  // render them without the legacy multi-route shell. The remaining routes
+  // (/lab, /cve-lab, /outcome) are the preserved research archive and keep the
+  // shell nav below.
+  if (pathname === "/" || pathname === "/demo") return <>{children}</>;
 
   return (
     <div className="min-h-screen bg-surface">

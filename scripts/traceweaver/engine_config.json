@@ -1,0 +1,29 @@
+{
+  "engine_version": "2.0.0",
+  "schema_version_required": "1.x",
+  "config_version": "1.0.0",
+  "risk_weights": {
+    "_doc": "Nonnegative weights that MUST sum to 1.0. P (verified policy evidence) is weighted highest because it is the most evidence-grounded signal; S (suspicious sequence) next; A (statistical anomaly) lowest because it is the weakest/most environment-dependent signal.",
+    "wA": 0.2,
+    "wS": 0.3,
+    "wP": 0.5
+  },
+  "thresholds": {
+    "_doc": "Risk-score bands (0-100). These gate the DESCRIPTIVE risk band only; they never override the visibility-aware verdict layer.",
+    "risk_suspicious": 40.0,
+    "risk_high": 70.0
+  },
+  "anomaly": {
+    "_doc": "A (0-1) = share of a stream's events that are anomalous versus a frequency baseline fitted ONLY on designated baseline data (benign control A7 + baseline-config streams). Missing events never raise A.",
+    "sensitive_paths": ["/etc/shadow", "/etc/sudoers", "/etc/ssh/ssh_host_rsa_key", "/etc/gshadow"],
+    "suspicious_exec_dirs": ["/tmp/", "/dev/shm/", "/var/tmp/"],
+    "rare_process_bonus": 0.5
+  },
+  "sequence_patterns": {
+    "_doc": "Each pattern contributes a severity (0-1) to S = max(severity of triggered patterns). Patterns require specific canonical event types + fields and are isolated to one trial/stream to avoid cross-trial correlation."
+  },
+  "verdict_policy": {
+    "_doc": "Visibility-aware verdict precedence (highest first). A high risk_score NEVER overrides a collection/execution failure.",
+    "precedence": ["EXECUTION_FAILED", "COLLECTION_FAILED", "DETECTED", "TELEMETRY_ONLY", "NOT_DETECTED", "INCONCLUSIVE"]
+  }
+}

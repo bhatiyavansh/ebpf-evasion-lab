@@ -5,6 +5,10 @@ import type {
   Catalog,
   Comparison,
   CveCatalog,
+  TwIndex,
+  EngineSummary,
+  EngineResult,
+  Evaluation,
   DashboardData,
   Environment,
   NormRecord,
@@ -63,6 +67,29 @@ export function loadComparison(): Comparison | null {
   return readJson<Comparison>("results/analysis/comparison.json");
 }
 
+export function loadTwIndex(): TwIndex | null {
+  return readJson<TwIndex>("results/normalized/events_index.json");
+}
+
+export function loadEngineSummary(): EngineSummary | null {
+  return readJson<EngineSummary>("results/engine/summary.json");
+}
+
+export function loadEvaluation(): Evaluation | null {
+  return readJson<Evaluation>("results/engine/evaluation.json");
+}
+
+export function loadEngineResults(): EngineResult[] {
+  const full = path.join(REPO_ROOT, "results/engine/results.jsonl");
+  if (!fs.existsSync(full)) return [];
+  const out: EngineResult[] = [];
+  for (const line of fs.readFileSync(full, "utf-8").split("\n")) {
+    if (!line.trim()) continue;
+    try { out.push(JSON.parse(line) as EngineResult); } catch { /* skip */ }
+  }
+  return out;
+}
+
 export function isSafeEvidencePath(rel: string): boolean {
   const norm = path.normalize(rel);
   if (norm.startsWith("..") || path.isAbsolute(norm)) return false;
@@ -71,6 +98,7 @@ export function isSafeEvidencePath(rel: string): boolean {
     norm.startsWith("results/normalized/") ||
     norm.startsWith("results/runs/") ||
     norm.startsWith("results/analysis/") ||
+    norm.startsWith("results/engine/") ||
     norm.startsWith("experiments/")
   );
 }
@@ -106,6 +134,10 @@ export function loadDashboardData(): DashboardData {
     cve: loadCve(),
     runs: loadRuns(),
     comparison: loadComparison(),
+    twIndex: loadTwIndex(),
+    engineSummary: loadEngineSummary(),
+    engineResults: loadEngineResults(),
+    evaluation: loadEvaluation(),
   };
 }
 

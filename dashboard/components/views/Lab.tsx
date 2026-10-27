@@ -8,23 +8,29 @@ import LiveReplay from "@/components/LiveReplay";
 import { AnalysisEngine, FailureAnalysis } from "@/components/Analysis";
 import { NewExperiments } from "@/components/NewExperiments";
 import EvidenceExplorer from "@/components/EvidenceExplorer";
+import NormalizedEvidence from "@/components/NormalizedEvidence";
+import TraceWeaverEngine from "@/components/TraceWeaverEngine";
+import TraceWeaverDemo from "@/components/TraceWeaverDemo";
 import LabComparison from "@/components/views/LabComparison";
 
-type Sub = "study" | "explorer" | "matrix" | "live" | "extended" | "analysis" | "evidence";
+type Sub = "twdemo" | "engine" | "study" | "explorer" | "matrix" | "live" | "extended" | "analysis" | "evidence" | "normalized";
 
 const SUBS: { id: Sub; label: string }[] = [
+  { id: "twdemo", label: "★ Demo" },
+  { id: "engine", label: "TraceWeaver Engine" },
   { id: "study", label: "Detection Study" },
   { id: "explorer", label: "Baseline Experiments" },
   { id: "matrix", label: "Comparisons" },
   { id: "extended", label: "E06–E09" },
   { id: "live", label: "Live & Replay" },
   { id: "evidence", label: "Evidence Explorer" },
+  { id: "normalized", label: "Normalized (TW)" },
   { id: "analysis", label: "Analysis" },
 ];
 
 export default function Lab({ data }: { data: DashboardData }) {
-  const { catalog, records, analysis, runs, comparison } = data;
-  const [sub, setSub] = useState<Sub>("study");
+  const { catalog, records, analysis, runs, comparison, twIndex, engineSummary, engineResults, evaluation } = data;
+  const [sub, setSub] = useState<Sub>("twdemo");
   const [selectedId, setSelectedId] = useState(catalog.experiments[0]?.id ?? "E01");
 
   return (
@@ -66,6 +72,9 @@ export default function Lab({ data }: { data: DashboardData }) {
       {sub === "extended" && analysis && <NewExperiments analysis={analysis} />}
       {sub === "live" && <LiveReplay catalog={catalog} records={records} />}
       {sub === "evidence" && <EvidenceExplorer runs={runs} />}
+      {sub === "normalized" && <NormalizedEvidence twIndex={twIndex} />}
+      {sub === "engine" && <TraceWeaverEngine summary={engineSummary} results={engineResults} evaluation={evaluation} />}
+      {sub === "twdemo" && <TraceWeaverDemo data={data} />}
       {sub === "analysis" && analysis && (
         <div className="space-y-5">
           <AnalysisEngine analysis={analysis} />

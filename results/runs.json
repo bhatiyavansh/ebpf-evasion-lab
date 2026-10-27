@@ -48,13 +48,13 @@
       ]
     },
     {
-      "run_id": "run-E04-20261016122414",
+      "run_id": "run-E04-20261026001232",
       "experiment_id": "E04",
       "tool": "tetragon",
       "provenance": "live",
       "status": "collection_failed",
-      "started_at": "2026-10-16T06:54:14Z",
-      "ended_at": "2026-10-16T06:54:19Z",
+      "started_at": "2026-10-25T18:42:32Z",
+      "ended_at": "2026-10-25T18:42:37Z",
       "evidence_raw": "results/raw/E04_tetragon.json",
       "evidence_events": "results/raw/tetragon_events/E04.jsonl",
       "processes_observed": null

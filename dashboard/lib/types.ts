@@ -276,6 +276,145 @@ export interface Comparison {
   } | null;
 }
 
+// TraceWeaver Phase 1 — canonical normalized-evidence index (read-only view).
+export interface TwStream {
+  stream: string;
+  stream_sha256: string;
+  manifest: string | null;
+  sensor: Tool;
+  trial_id: string;
+  capture_mode: string;
+  normalized_events: string | null;
+  event_count: number;
+  canonical_type_counts: Record<string, number>;
+}
+export interface TwIndex {
+  schema_version: string;
+  total_streams: number;
+  total_events: number;
+  total_quarantined: number;
+  total_normalization_warnings: number;
+  events_by_sensor: Record<string, number>;
+  events_by_capture_mode: Record<string, number>;
+  streams: TwStream[];
+}
+
+// TraceWeaver Phase 2 — engine output (verdicts, scores, findings, provenance).
+export interface EngineFinding {
+  pattern: string;
+  severity: number;
+  event_ids: string[];
+  raw_refs: { file: string; line: number; sha256?: string }[];
+  explanation: string;
+  mitre: string[];
+}
+export interface EngineResult {
+  engine_version: string;
+  trial_id: string | null;
+  stream: string;
+  sensor: Tool;
+  scenario_id: string | null;
+  capture_mode: string;
+  visibility_status: string;
+  verdict: string;
+  verdict_reason: string;
+  risk_score: number;
+  risk_band: string;
+  component_scores: { A_anomaly: number; S_sequence: number; P_policy: number; weights: Record<string, number> };
+  findings: EngineFinding[];
+  qualifying_policy_events: { event_id: string; native_event: string; raw_ref: { file: string; line: number } }[];
+  supporting_event_ids: string[];
+  graph_summary: { nodes: number; edges: number; node_kinds: Record<string, number>; identity_gaps: number };
+  process_timeline: { process: string; args: string; pid: number | string; timestamp: string; event_id: string; raw_ref: { file: string; line: number } }[];
+  explanations: string[];
+  warnings: string[];
+  time_window: { start: string | null; end: string | null };
+  event_count: number;
+  is_baseline_stream: boolean;
+}
+export interface EngineSummary {
+  engine_version: string;
+  config_version: string;
+  total_streams: number;
+  verdict_distribution: Record<string, number>;
+  visibility_distribution: Record<string, number>;
+  by_sensor: Record<string, number>;
+  baseline_fit_on: string[];
+  detected_streams: string[];
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Evaluation = any;
+
+// TraceWeaver behavior-graph payload (read-only visualization adapter).
+export interface GraphEventView {
+  order: number;
+  event_id: string;
+  timestamp: string | null;
+  canonical_type: string;
+  sensor: string;
+  native_event: string | null;
+  process_name: string | null;
+  process_args: string | null;
+  pid: number | string | null;
+  parent_pid: number | string | null;
+  container_id: string | null;
+  container_name: string | null;
+  file_path: string | null;
+  file_operation: string | null;
+  network_dest: string | null;
+  network_port: string | number | null;
+  raw_ref: { file: string; line: number; sha256?: string } | null;
+}
+export interface GraphNode {
+  id: string;
+  kind: "process" | "file" | "network" | "container" | "security_event";
+  label: string;
+  identifier: string;
+  event_ids: string[];
+  raw_refs: ({ file: string; line: number; sha256?: string } | null)[];
+  identity_known: boolean;
+  is_finding: boolean;
+  first_order: number;
+}
+export interface GraphEdge {
+  id: string;
+  type: "parent_of" | "accessed" | "connected" | "in_container";
+  source: string;
+  target: string;
+  event_id: string | null;
+  raw_ref: { file: string; line: number; sha256?: string } | null;
+  reveal_order: number;
+  derived: boolean;
+}
+export interface GraphPayload {
+  ok: boolean;
+  error?: string;
+  stream: string;
+  sensor: string;
+  scenario_id: string | null;
+  capture_mode: string;
+  visibility_status: string;
+  verdict: string;
+  verdict_reason: string;
+  risk_score: number;
+  risk_band: string;
+  component_scores: { A_anomaly: number; S_sequence: number; P_policy: number; weights: Record<string, number> };
+  event_count: number;
+  time_window: { start: string | null; end: string | null };
+  events: GraphEventView[];
+  nodes: GraphNode[];
+  edges: GraphEdge[];
+  findings: EngineFinding[];
+  finding_event_ids: string[];
+  identity_gaps: number;
+  correlation_limits: { field: string; events_missing: number; effect: string }[];
+  engine_edge_count: number;
+  data_mode: string;
+  is_synthetic: boolean;
+  result: EngineResult;
+  elapsed_ms?: number;
+}
+
 export interface DashboardData {
   catalog: Catalog;
   records: NormRecord[];
@@ -284,4 +423,8 @@ export interface DashboardData {
   cve: CveCatalog | null;
   runs: RunRow[];
   comparison: Comparison | null;
+  twIndex: TwIndex | null;
+  engineSummary: EngineSummary | null;
+  engineResults: EngineResult[];
+  evaluation: Evaluation | null;
 }

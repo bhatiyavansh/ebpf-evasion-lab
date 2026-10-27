@@ -415,10 +415,10 @@
       "evidence_raw": "results/raw/E04_tetragon.json",
       "evidence_events": "results/raw/tetragon_events/E04.jsonl",
       "confidence": "n/a",
-      "run_id": "run-E04-20261016122414",
+      "run_id": "run-E04-20261026001232",
       "provenance": "live",
-      "started_at": "2026-10-16T06:54:14Z",
-      "ended_at": "2026-10-16T06:54:19Z",
+      "started_at": "2026-10-25T18:42:32Z",
+      "ended_at": "2026-10-25T18:42:37Z",
       "tool_version": "quay.io/cilium/tetragon:v1.6.0",
       "dimensions": {
         "execution": "completed",
@@ -427,7 +427,7 @@
         "detection": "not_evaluated"
       },
       "notes": "Tetragon observed sched_process_exec telemetry for  inside the controlled Alpine container. Both shell layers and the final command were captured; additional shell indirection did not remove process-execution telemetry. This is telemetry observed, not a confirmed security detection (no alerting policy was evaluated).",
-      "interpretation": "Workload executed (exit 0) but Tetragon captured zero events scoped to the container. Tetragon emitted no events at all in the window. This is COLLECTION_FAILED, not a detector miss and not telemetry."
+      "interpretation": "Workload executed (exit 0) but Tetragon captured zero events scoped to the container. Tetragon emitted host events in the same window, so the sensor is alive but is not tracking this Docker container (a Tetragon-specific container-cgroup tracking regression observed after the host reboot; Falco and Tracee track the same container normally). This is COLLECTION_FAILED, not a detector miss and not telemetry."
     },
     {
       "experiment_id": "E05",

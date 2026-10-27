@@ -1,6 +1,6 @@
 import { loadDashboardData } from "@/lib/data";
-import Home from "@/components/views/Home";
+import TraceWeaverApp from "@/components/TraceWeaverApp";
 export const dynamic = "force-dynamic";
 export default function Page() {
-  return <Home data={loadDashboardData()} />;
+  return <TraceWeaverApp data={loadDashboardData()} />;
 }

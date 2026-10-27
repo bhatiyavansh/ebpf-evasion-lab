@@ -1,0 +1,375 @@
+{
+  "evaluation_version": "1.0.0",
+  "generated_at": "2026-10-25T18:40:35+00:00",
+  "git_revision": "d02ce979c3161b4019f6689bb9398e0863ec5247",
+  "engine_version": "2.0.0",
+  "schema_version": "1.0.0",
+  "config_hash": "2e474f9325cd33ab",
+  "anomaly_threshold": 0.2,
+  "labels": {
+    "A1": "positive",
+    "A5": "positive",
+    "A6": "positive",
+    "A7": "negative",
+    "A2": "ambiguous",
+    "A3": "ambiguous"
+  },
+  "train_split_streams": [
+    "falco__A2_falco_t1",
+    "falco__A2_falco_t10",
+    "falco__A2_falco_t2",
+    "falco__A2_falco_t3",
+    "falco__A2_falco_t4",
+    "falco__A2_falco_t5",
+    "falco__A2_falco_t6",
+    "falco__A2_falco_t7",
+    "falco__A2_falco_t8",
+    "falco__A2_falco_t9",
+    "falco__A3_falco_t1",
+    "falco__A3_falco_t10",
+    "falco__A3_falco_t2",
+    "falco__A3_falco_t3",
+    "falco__A3_falco_t4",
+    "falco__A3_falco_t5",
+    "falco__A3_falco_t6",
+    "falco__A3_falco_t7",
+    "falco__A3_falco_t8",
+    "falco__A3_falco_t9",
+    "tetragon__E01",
+    "tetragon__E02",
+    "tetragon__E03",
+    "tetragon__E05",
+    "tracee__A2_tracee_t1",
+    "tracee__A2_tracee_t10",
+    "tracee__A2_tracee_t2",
+    "tracee__A2_tracee_t3",
+    "tracee__A2_tracee_t4",
+    "tracee__A2_tracee_t5",
+    "tracee__A2_tracee_t6",
+    "tracee__A2_tracee_t7",
+    "tracee__A2_tracee_t8",
+    "tracee__A2_tracee_t9",
+    "tracee__A3_tracee_t1",
+    "tracee__A3_tracee_t10",
+    "tracee__A3_tracee_t2",
+    "tracee__A3_tracee_t3",
+    "tracee__A3_tracee_t4",
+    "tracee__A3_tracee_t5",
+    "tracee__A3_tracee_t6",
+    "tracee__A3_tracee_t7",
+    "tracee__A3_tracee_t8",
+    "tracee__A3_tracee_t9"
+  ],
+  "eligible_count": 52,
+  "ineligible_reasons": {
+    "baseline/training split": 44,
+    "ambiguous label (A2)": 3,
+    "ambiguous label (A3)": 3,
+    "visibility=COLLECTION_FAILED": 1,
+    "no supervised label for scenario E06": 5,
+    "no supervised label for scenario E07": 2,
+    "no supervised label for scenario E08": 1
+  },
+  "eligible_streams": [
+    "results/raw/falco_events/A1_falco_t1.jsonl",
+    "results/raw/falco_events/A1_falco_t10.jsonl",
+    "results/raw/falco_events/A1_falco_t2.jsonl",
+    "results/raw/falco_events/A1_falco_t3.jsonl",
+    "results/raw/falco_events/A1_falco_t4.jsonl",
+    "results/raw/falco_events/A1_falco_t5.jsonl",
+    "results/raw/falco_events/A1_falco_t6.jsonl",
+    "results/raw/falco_events/A1_falco_t7.jsonl",
+    "results/raw/falco_events/A1_falco_t8.jsonl",
+    "results/raw/falco_events/A1_falco_t9.jsonl",
+    "results/raw/falco_events/A5_falco_t1.jsonl",
+    "results/raw/falco_events/A5_falco_t2.jsonl",
+    "results/raw/falco_events/A5_falco_t3.jsonl",
+    "results/raw/falco_events/A5_falco_t4.jsonl",
+    "results/raw/falco_events/A5_falco_t5.jsonl",
+    "results/raw/falco_events/A5_falco_t6.jsonl",
+    "results/raw/falco_events/A5_falco_t7.jsonl",
+    "results/raw/falco_events/A6_falco_t1.jsonl",
+    "results/raw/falco_events/A6_falco_t2.jsonl",
+    "results/raw/falco_events/A6_falco_t3.jsonl",
+    "results/raw/falco_events/A7_falco_t1.jsonl",
+    "results/raw/falco_events/A7_falco_t2.jsonl",
+    "results/raw/falco_events/A7_falco_t3.jsonl",
+    "results/raw/tetragon_events/A1_tetB_t1.jsonl",
+    "results/raw/tetragon_events/A1_tetB_t2.jsonl",
+    "results/raw/tetragon_events/A1_tetB_t3.jsonl",
+    "results/raw/tetragon_events/A1_tetC_t1.jsonl",
+    "results/raw/tetragon_events/A1_tetC_t2.jsonl",
+    "results/raw/tetragon_events/A1_tetC_t3.jsonl",
+    "results/raw/tracee_events/A1_tracee_t1.jsonl",
+    "results/raw/tracee_events/A1_tracee_t10.jsonl",
+    "results/raw/tracee_events/A1_tracee_t2.jsonl",
+    "results/raw/tracee_events/A1_tracee_t3.jsonl",
+    "results/raw/tracee_events/A1_tracee_t4.jsonl",
+    "results/raw/tracee_events/A1_tracee_t5.jsonl",
+    "results/raw/tracee_events/A1_tracee_t6.jsonl",
+    "results/raw/tracee_events/A1_tracee_t7.jsonl",
+    "results/raw/tracee_events/A1_tracee_t8.jsonl",
+    "results/raw/tracee_events/A1_tracee_t9.jsonl",
+    "results/raw/tracee_events/A5_tracee_t1.jsonl",
+    "results/raw/tracee_events/A5_tracee_t2.jsonl",
+    "results/raw/tracee_events/A5_tracee_t3.jsonl",
+    "results/raw/tracee_events/A5_tracee_t4.jsonl",
+    "results/raw/tracee_events/A5_tracee_t5.jsonl",
+    "results/raw/tracee_events/A5_tracee_t6.jsonl",
+    "results/raw/tracee_events/A5_tracee_t7.jsonl",
+    "results/raw/tracee_events/A6_tracee_t1.jsonl",
+    "results/raw/tracee_events/A6_tracee_t2.jsonl",
+    "results/raw/tracee_events/A6_tracee_t3.jsonl",
+    "results/raw/tracee_events/A7_tracee_t1.jsonl",
+    "results/raw/tracee_events/A7_tracee_t2.jsonl",
+    "results/raw/tracee_events/A7_tracee_t3.jsonl"
+  ],
+  "methods": {
+    "rules_only": {
+      "confusion": {
+        "tp": 20,
+        "fp": 0,
+        "tn": 6,
+        "fn": 26,
+        "per_scenario_sensor": {
+          "A1/falco": {
+            "tp": 10,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A1/tetragon": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 6
+          },
+          "A1/tracee": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 10
+          },
+          "A5/falco": {
+            "tp": 7,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A5/tracee": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 7
+          },
+          "A6/falco": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 3
+          },
+          "A6/tracee": {
+            "tp": 3,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A7/falco": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 3,
+            "fn": 0
+          },
+          "A7/tracee": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 3,
+            "fn": 0
+          }
+        }
+      },
+      "metrics": {
+        "tp": 20,
+        "fp": 0,
+        "tn": 6,
+        "fn": 26,
+        "positives": 46,
+        "negatives": 6,
+        "total_eligible": 52,
+        "precision": 1.0,
+        "precision_denom": 20,
+        "recall": 0.4348,
+        "recall_denom": 46,
+        "f1": 0.6061,
+        "false_positive_rate": 0.0,
+        "fpr_denom": 6
+      }
+    },
+    "anomaly_only": {
+      "confusion": {
+        "tp": 33,
+        "fp": 0,
+        "tn": 6,
+        "fn": 13,
+        "per_scenario_sensor": {
+          "A1/falco": {
+            "tp": 10,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A1/tetragon": {
+            "tp": 6,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A1/tracee": {
+            "tp": 10,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A5/falco": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 7
+          },
+          "A5/tracee": {
+            "tp": 7,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A6/falco": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 3
+          },
+          "A6/tracee": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 3
+          },
+          "A7/falco": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 3,
+            "fn": 0
+          },
+          "A7/tracee": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 3,
+            "fn": 0
+          }
+        }
+      },
+      "metrics": {
+        "tp": 33,
+        "fp": 0,
+        "tn": 6,
+        "fn": 13,
+        "positives": 46,
+        "negatives": 6,
+        "total_eligible": 52,
+        "precision": 1.0,
+        "precision_denom": 33,
+        "recall": 0.7174,
+        "recall_denom": 46,
+        "f1": 0.8354,
+        "false_positive_rate": 0.0,
+        "fpr_denom": 6
+      }
+    },
+    "combined": {
+      "confusion": {
+        "tp": 43,
+        "fp": 0,
+        "tn": 6,
+        "fn": 3,
+        "per_scenario_sensor": {
+          "A1/falco": {
+            "tp": 10,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A1/tetragon": {
+            "tp": 6,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A1/tracee": {
+            "tp": 10,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A5/falco": {
+            "tp": 7,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A5/tracee": {
+            "tp": 7,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A6/falco": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 3
+          },
+          "A6/tracee": {
+            "tp": 3,
+            "fp": 0,
+            "tn": 0,
+            "fn": 0
+          },
+          "A7/falco": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 3,
+            "fn": 0
+          },
+          "A7/tracee": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 3,
+            "fn": 0
+          }
+        }
+      },
+      "metrics": {
+        "tp": 43,
+        "fp": 0,
+        "tn": 6,
+        "fn": 3,
+        "positives": 46,
+        "negatives": 6,
+        "total_eligible": 52,
+        "precision": 1.0,
+        "precision_denom": 43,
+        "recall": 0.9348,
+        "recall_denom": 46,
+        "f1": 0.9663,
+        "false_positive_rate": 0.0,
+        "fpr_denom": 6
+      }
+    }
+  },
+  "caveats": [
+    "Small, exploratory sample \u2014 not a statistically powered study.",
+    "The anomaly baseline is fit only on the train-split streams (benign/baseline), which are excluded from these metrics to avoid leakage.",
+    "'Flag' means surfaced-as-suspicious; a verified DETECTED still requires P>0.",
+    "A2/A3 are ambiguous and excluded; E-series are observability baselines and excluded."
+  ]
+}

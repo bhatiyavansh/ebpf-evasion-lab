@@ -1,0 +1,1 @@
+{"_synthetic":true,"_note":"SYNTHETIC test fixture — NOT real sensor output. Excluded from results/ evidence pipeline.","rule":"Read sensitive file untrusted","priority":"Warning","time":"2026-01-01T00:00:00Z","output_fields":{"container.id":"synthetic00","proc.name":"cat","proc.cmdline":"cat /etc/shadow","fd.name":"/etc/shadow","evt.type":"openat"},"tags":["T1555"]}

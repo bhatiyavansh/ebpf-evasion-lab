@@ -1,14 +1,14 @@
 {
-  "run_id": "run-E04-20261016122414",
+  "run_id": "run-E04-20261026001232",
   "run_label": "E04",
   "tool": "tetragon",
   "provenance": "live",
-  "started_at": "2026-10-16T06:54:14Z",
-  "ended_at": "2026-10-16T06:54:19Z",
+  "started_at": "2026-10-25T18:42:32Z",
+  "ended_at": "2026-10-25T18:42:37Z",
   "workload_image": "alpine:3.20",
   "workload_cmd": "sh -c sh -c \"echo ADAPTIVE_INDIRECT_EXEC; id\"",
-  "container_id": "9b74b0c03b3225fba175fdc930d92b35b65cb5fb25221c0b90f7325597b0c7a2",
-  "container_short": "9b74b0c03b32",
+  "container_id": "9873ab5e9ab40c9d63058c394c3f80d920da66149263657d983503ee4f60cd7f",
+  "container_short": "9873ab5e9ab4",
   "tool_version": "quay.io/cilium/tetragon:v1.6.0",
   "policies": [
     "ebpf-lab-process-exec (sched_process_exec)",
@@ -26,9 +26,9 @@
   "evidence_events": "results/raw/tetragon_events/E04.jsonl",
   "workload_exit_code": "0",
   "execution_ok": true,
-  "host_events_in_window": 0,
-  "sensor_health": "no_events_in_window",
-  "collection_status": "collection_failed_sensor_no_events",
+  "host_events_in_window": 52,
+  "sensor_health": "healthy",
+  "collection_status": "collection_failed_container_not_tracked",
   "evidence_preserved": false,
-  "collection_note": "Workload executed (exit 0) but Tetragon captured zero events scoped to the container. Tetragon emitted no events at all in the window. This is COLLECTION_FAILED, not a detector miss and not telemetry."
+  "collection_note": "Workload executed (exit 0) but Tetragon captured zero events scoped to the container. Tetragon emitted host events in the same window, so the sensor is alive but is not tracking this Docker container (a Tetragon-specific container-cgroup tracking regression observed after the host reboot; Falco and Tracee track the same container normally). This is COLLECTION_FAILED, not a detector miss and not telemetry."
 }

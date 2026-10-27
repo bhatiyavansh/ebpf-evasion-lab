@@ -1,5 +1,53 @@
 # Adaptive Evasion Analysis of eBPF-Based Runtime Security Systems
 
+
+## TraceWeaver — explainable, visibility-aware detection engine
+
+This repository now includes **TraceWeaver**, a detection engine that consumes normalized
+Falco/Tracee/Tetragon events and returns explainable, provenance-backed verdicts.
+
+- **Product (two tabs):** http://localhost:3000/ — **Main** (Scenario Explorer → *Run Analysis*) and
+  **Outcome** (interactive behaviour graph + replay · verdict · risk · signals · timeline · visibility ·
+  evaluation). Main's *Run Analysis* button executes the real engine on the selected stream via the
+  allowlisted `POST /api/traceweaver/graph` endpoint and opens the full investigation on Outcome.
+- **Interactive behaviour graph + replay (Outcome tab):** a dependency-free SVG graph of the
+  correlated processes / files / containers / alerts for the selected trial, with Play / Pause /
+  Step / Reset / speed / scrubber controls that progressively reveal events in real timestamp order.
+  Nodes, edges and findings are all click-to-inspect and trace to `file:line:sha256`.
+- **Graph API (read-only):** `python3 -m scripts.traceweaver.cli graph --stream <raw_path>` emits the
+  ordered events + evidence-backed nodes/edges for one stream (reuses the engine's own BehaviorGraph —
+  no second detector). Served to the UI by `POST /api/traceweaver/graph` (strict allowlist + traversal
+  guard + bounded timeout).
+- **Run the engine (CLI):** `python3 -m scripts.traceweaver.cli run --all --summary`
+- **Validate output + explanations:** `python3 -m scripts.traceweaver.cli validate`
+- **Evaluate (3 baselines):** `python3 -m scripts.traceweaver.evaluate`
+- **One-command demo:** `./scripts/traceweaver_demo.sh`
+- **Research archive (study internals):** http://localhost:3000/lab (linked from the product header)
+
+> **Graph relationships are evidence-only.** Edges come from the engine's correlation
+> (`parent_of`, `accessed`, `connected`) plus a `in_container` membership edge derived from a
+> concrete `container_id` field. When identity fields (pid/parent_pid) are missing, the graph shows
+> the disconnected nodes and a "why correlation is limited" panel instead of fabricating edges. A
+> collection/execution failure renders a distinct failure state, never an empty graph read as "clean".
+
+> **Live vs. replay (honest framing):** *Run Analysis* runs the TraceWeaver engine on demand — the
+> computation is live — but the underlying sensor events are **recorded captures** (historical
+> replay), not a live kernel feed. The UI states this explicitly; it never labels replay as live.
+
+Pipeline: canonical events → behavior graph → {anomaly A, sequence S, policy P} →
+`risk = 100·(0.2A+0.3S+0.5P)` → **visibility-aware verdict** (a risk score never overrides a
+collection/execution failure; a verified DETECTED requires real policy evidence). Every finding cites
+the exact raw record (`file:line:sha256`). Docs: `docs/TRACEWEAVER_ARCHITECTURE.md`,
+`TRACEWEAVER_ALGORITHM.md`, `TRACEWEAVER_EVALUATION.md`, `TRACEWEAVER_DEMO.md`,
+`TRACEWEAVER_LIMITATIONS.md`, `TRACEWEAVER_REVIEW.md`. Phase-1 data foundation:
+`docs/TRACEWEAVER_PHASE1_AUDIT.md`.
+
+Current evaluation (52 eligible trials, exploratory): rules-only F1 0.61 → **TraceWeaver F1 0.97**
+(precision 1.0, 0 false positives on the benign control). Known limitation: Tetragon live container
+capture is broken (COLLECTION_FAILED); Falco/Tracee unaffected.
+
+---
+
 **A reproducible runtime-security evaluation platform for Linux container environments.**
 
 > **Research question** — How does adaptive modification of containerized execution
@@ -16,8 +64,8 @@ from *security detection*, and never fabricates a result.
 
 | Route | Purpose |
 |-------|---------|
-| `/` | Command Center — research overview, environment, status model, headline findings |
-| `/lab` | Experiment Lab — **Detection Study** (fair comparison), baseline experiments, comparison matrix, E06–E09, live/replay, evidence explorer, analysis, exports |
+| `/` | **TraceWeaver product** — two primary tabs: **Main** (evidence selector + *Run Analysis*) and **Outcome** (real verdict, risk gauge, A/S/P signal breakdown, evidence timeline with raw provenance, visibility panel, evaluation comparison) |
+| `/lab` | Research archive — Experiment Lab: **Detection Study** (fair comparison), baseline experiments, comparison matrix, E06–E09, live/replay, evidence explorer, analysis, exports |
 | `/cve-lab` | Real-CVE compatibility & evaluation (Dirty Pipe, OverlayFS, nf_tables) with safe-simulation / recorded / blocked-reproduction modes |
 | `/outcome` | Report-quality, **conclusion-first** findings: detection matrix, baseline-vs-configured detection rate, telemetry coverage, evidence-linked key findings |
 | `/demo` | Guided 7-act faculty demonstration (live or recorded), keyboard-navigable |
